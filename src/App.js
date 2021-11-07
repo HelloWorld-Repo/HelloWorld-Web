@@ -1,7 +1,9 @@
+import { Typography } from "@mui/material";
+
 const App = ({ login = false }) => {
   return (
     <div>
-      <h1>Bookkeeper</h1>
+      <Typography>Bookkeeper</Typography>
       <nav
         style={{
           borderBottom: "solid 1px",

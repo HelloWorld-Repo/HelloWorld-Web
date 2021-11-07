@@ -7,8 +7,6 @@ import SignRoutes from "./routes/SignRoutes";
 const Route = () => {
   const { signed } = useAuth();
 
-  console.log(signed);
-
   return signed ? <OtherRoutes /> : <SignRoutes />;
 };
 
