@@ -1,13 +1,16 @@
 import React from "react";
-import { Grid, Button } from "@mui/material";
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { Grid, Button, Typography } from "@mui/material";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { useTheme } from "@mui/material/styles";
 
-import useStyles from "./styles";
 import { Logo } from "../../components";
+import LoginForm from "./components/LoginForm";
+import useStyles from "./styles";
+import clsx from "clsx";
 
 const Login = (props) => {
   const classes = useStyles();
-
+  const theme = useTheme();
   return (
     <Grid direction="row" container className={classes.gridContainer}>
       <Grid
@@ -16,17 +19,29 @@ const Login = (props) => {
         alignItems="center"
         display="flex"
         xs={6}
+        container
+        item
       >
         <Logo containerClasses={classes.logoContainer} />
-        <Button
-          startIcon={<FileDownloadOutlinedIcon />}
-          variant="outlined"
-        >
+        <Button startIcon={<FileDownloadOutlinedIcon />} variant="outlined">
           Baixar Aplicativo
         </Button>
       </Grid>
-      <Grid className={classes.formContainer} xs={6}>
-        Teste 2
+      <Grid
+        className={classes.formContainer}
+        xs={6}
+        direction="column"
+        container
+        item
+      >
+        <Typography
+          fontFamily={theme.typography.fonts.text}
+          className={clsx(classes.loginLabel)}
+          fontSize={theme.typography.size.text}
+        >
+          Olá novamente, digite seu login para continuar
+        </Typography>
+        <LoginForm />
       </Grid>
     </Grid>
   );

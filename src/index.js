@@ -16,18 +16,16 @@ import "@fontsource/londrina-solid/400.css";
 import "@fontsource/londrina-solid/900.css";
 import "@fontsource/text-me-one/400.css";
 
-import "./style.js";
-
 const rootElement = document.getElementById("root");
 
 render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <AuthProvider>
-      <BrowserRouter>
+  <AuthProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <Router />
-      </BrowserRouter>
-    </AuthProvider>
-  </ThemeProvider>,
+      </ThemeProvider>
+    </BrowserRouter>
+  </AuthProvider>,
   rootElement
 );

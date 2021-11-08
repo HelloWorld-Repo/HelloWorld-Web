@@ -7,11 +7,19 @@ const useStyles = makeStyles((theme) => ({
 
   formContainer: {
     backgroundColor: theme.palette.primary.main,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   gridContainer: {
     flex: 1,
     minHeight: "100vh",
+  },
+
+  loginLabel: {
+    color: theme.palette.dark,
+    textAlign: "center",
   },
 }));
 
