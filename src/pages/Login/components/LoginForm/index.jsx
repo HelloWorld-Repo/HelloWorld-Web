@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { TextField, Button, FormControl, Box } from "@mui/material";
 import { useTheme } from "@mui/styles";
 import * as Yup from "yup";
 
+import { useAuth } from "../../../../contexts/auth";
 import useStyles from "./styles";
 
 const LoginForm = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const { signIn } = useAuth();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -27,8 +32,17 @@ const LoginForm = () => {
           (val) => val?.length >= 6
         ),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        const { email, password } = values;
+        await signIn(email, password);
+      } catch (error) {
+        console.error(error);
+        setError(error?.message || "Ops, aconteceu um erro, tente novamente");
+      } finally {
+        setLoading(false);
+      }
     },
   });
 
