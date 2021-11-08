@@ -3,17 +3,15 @@ import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import useStyles from "./styles";
+import clsx from "clsx";
 
-const Logo = ({ size = 40, spacing = 5, color }) => {
+const Logo = ({ size = 60, spacing = 5, color, containerClasses = {} }) => {
   const theme = useTheme();
   const classes = useStyles();
 
-  console.log(theme)
-
   return (
-    <div className={classes.logoContainer}>
+    <div className={clsx([classes.logoContainer, containerClasses])}>
       <Typography
-        key="h1"
         fontSize={size}
         fontFamily={theme.typography.fonts.title}
         lineHeight={1}
@@ -24,7 +22,6 @@ const Logo = ({ size = 40, spacing = 5, color }) => {
       <Typography
         lineHeight={1}
         marginLeft={spacing}
-        key="h1"
         fontFamily={theme.typography.fonts.title}
         fontSize={size}
         color={color || theme.palette.primary.main}

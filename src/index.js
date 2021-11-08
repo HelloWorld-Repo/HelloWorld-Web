@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import { AuthProvider } from "./contexts/auth";
 import Router from "./route";
@@ -15,10 +16,13 @@ import "@fontsource/londrina-solid/400.css";
 import "@fontsource/londrina-solid/900.css";
 import "@fontsource/text-me-one/400.css";
 
+import "./style.js";
+
 const rootElement = document.getElementById("root");
 
 render(
   <ThemeProvider theme={theme}>
+    <CssBaseline />
     <AuthProvider>
       <BrowserRouter>
         <Router />

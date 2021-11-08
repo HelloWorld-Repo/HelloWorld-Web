@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import darkScrollbar from "@mui/material/darkScrollbar";
 
 const theme = createTheme({
   palette: {
@@ -18,6 +19,16 @@ const theme = createTheme({
     },
     size: {
       title: 50,
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          ...darkScrollbar(),
+          margin: 0,
+        },
+      },
     },
   },
 });

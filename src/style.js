@@ -1,9 +1,9 @@
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
-  logoContainer: {
-    display: "flex",
-    flexDirection: "column",
+  "body, html": {
+    margin: 0,
+    minHeight: "100vh",
   },
 });
 
