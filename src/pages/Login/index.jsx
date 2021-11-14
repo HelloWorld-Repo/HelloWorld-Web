@@ -34,11 +34,7 @@ const Login = (props) => {
         container
         item
       >
-        <Typography
-          fontFamily={theme.typography.fonts.text}
-          className={clsx(classes.loginLabel)}
-          fontSize={theme.typography.size.text}
-        >
+        <Typography>
           Olá novamente, digite seu login para continuar
         </Typography>
         <LoginForm />

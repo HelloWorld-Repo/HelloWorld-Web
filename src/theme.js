@@ -12,28 +12,25 @@ const theme = createTheme({
       contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#202020",
-      contrastText: "#FFFFFF",
+      main: "#00DFC0",
+      contrastText: "#202020",
     },
     tertiary: {
-      main: "#FFFFFF",
+      main: "#F6F6F6",
       contrastText: "#00DFC0",
       disabled: "grey",
     },
     error: {
       main: "#ff7575",
     },
-    white: "#FFF",
-    dark: "#202020",
+    dark: { main: "#202020" },
   },
   typography: {
-    fonts: {
-      title: "Londrina Shadow",
-      text: "Text Me One",
-    },
-    size: {
-      title: 50,
-      text: 18,
+    fontFamily: "Text Me One",
+    fontSize: 18,
+    h1: {
+      fontFamily: "Londrina Shadow",
+      fontSize: 50,
     },
   },
   components: {

@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { TextField, Button, FormControl, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  FormControl,
+  Box,
+  FormHelperText,
+  CircularProgress,
+  Backdrop
+} from "@mui/material";
 import { useTheme } from "@mui/styles";
 import * as Yup from "yup";
 
@@ -48,9 +56,12 @@ const LoginForm = () => {
 
   return (
     <form className={classes.form}>
+      <Backdrop open={loading}>
+        <CircularProgress></CircularProgress>
+      </Backdrop>
       <FormControl fullWidth sx={{ p: theme.spacing(1, 0) }}>
         <TextField
-          color="secondary"
+          color="tertiary"
           label="E-mail"
           variant="filled"
           type="email"
@@ -70,7 +81,7 @@ const LoginForm = () => {
 
       <FormControl fullWidth sx={{ p: theme.spacing(1, 0) }}>
         <TextField
-          color="secondary"
+          color="tertiary"
           label="Senha"
           variant="filled"
           type="password"
@@ -88,13 +99,11 @@ const LoginForm = () => {
         />
       </FormControl>
 
+      {error && <FormHelperText error>{error}</FormHelperText>}
+
       <Box className={classes.buttonContainer}>
         <Button
-          disabled={
-            formik.isSubmitting ||
-            !!formik.errors.email ||
-            !!formik.errors.password
-          }
+          disabled={formik.isSubmitting || !formik.isValid}
           variant="contained"
           size="large"
           color="tertiary"

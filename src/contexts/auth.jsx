@@ -32,6 +32,12 @@ export const AuthProvider = ({ children }) => {
       const response = await AuthService.login(email, password);
 
       if (response?.user) {
+        if (!response?.user?.isAdmin) {
+          throw new Error(
+            "Não autorizado. Você pode baixar o app para aprender lógica de programação :D"
+          );
+        }
+
         setUser({ ...response?.user, token: response?.token });
 
         api.defaults.headers.Authorization = `Baerer ${response?.token}`;
