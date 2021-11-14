@@ -1,3 +1,4 @@
 import Logo from "./Logo";
+import Navbar from "./Navbar";
 
-export { Logo };
+export { Navbar, Logo };
