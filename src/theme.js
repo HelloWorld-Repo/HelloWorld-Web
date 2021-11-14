@@ -32,6 +32,10 @@ const theme = createTheme({
       fontFamily: "Londrina Shadow",
       fontSize: 50,
     },
+    h2: {
+      fontFamily: "Londrina Shadow",
+      fontSize: 30,
+    }
   },
   components: {
     MuiCssBaseline: {

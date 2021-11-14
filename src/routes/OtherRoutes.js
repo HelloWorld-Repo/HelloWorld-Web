@@ -1,10 +1,14 @@
 import { Routes as Switch, Route } from "react-router-dom";
-import App from "../App";
+import Home from "../pages/Home";
+import { Navbar } from "../components";
 
 const OtherRoutes = () => (
-  <Switch>
-    <Route exact path="/" element={<App login />} />
-  </Switch>
+  <>
+    <Navbar />
+    <Switch>
+      <Route path="/" element={<Home />} />
+    </Switch>
+  </>
 );
 
 export default OtherRoutes;

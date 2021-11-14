@@ -10,10 +10,10 @@ const Navbar = () => {
     <Box>
       <AppBar position="static" elevation={0} color="tertiary">
         <Toolbar>
-          <Typography flexGrow={1} fontSize={15} variant="h6" component="div">
+          <Typography flexGrow={1} fontSize={20} variant="h6" component="div">
             Olá, {user?.name.split(" ")[0]}
           </Typography>
-          <Button fontSize={15} color="inherit">
+          <Button fontSize={20} color="inherit">
             Sair
           </Button>
         </Toolbar>
