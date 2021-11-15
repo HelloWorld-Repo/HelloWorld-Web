@@ -1,11 +1,19 @@
 import React, { Fragment } from "react";
-import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
+import {
+  ButtonBase,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { Box, useTheme } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 import useStyles from "./styles";
 
 const Home = () => {
   const theme = useTheme();
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const gridParams = {
     xs: 12,
@@ -50,14 +58,29 @@ const Home = () => {
     <Box p={theme.spacing(5)}>
       {content.map((module) => (
         <Fragment key={module.id}>
-          <Typography variant="h2">{module.title}</Typography>
+          <Box backgroundColor={theme.palette.grey[200]}>
+            <Typography
+              variant="h2"
+              fontFamily="Text Me One"
+              fontSize={18}
+              fontWeight="bold"
+              padding={theme.spacing(2)}
+            >
+              {module.title.toUpperCase()}
+            </Typography>
+          </Box>
           <Grid container {...gridContainerParams}>
             {module.content.map((item) => (
               <Grid {...gridParams} key={item.id}>
                 <Card>
-                  <CardContent>
-                    <Typography textAlign="center">{item.title}</Typography>
-                  </CardContent>
+                  <ButtonBase
+                    onClick={() => navigate(item.link)}
+                    className={classes.buttonBase}
+                  >
+                    <CardContent>
+                      <Typography textAlign="center">{item.title}</Typography>
+                    </CardContent>
+                  </ButtonBase>
                 </Card>
               </Grid>
             ))}

@@ -8,7 +8,7 @@ const Navbar = () => {
 
   return (
     <Box>
-      <AppBar position="static" elevation={0} color="tertiary">
+      <AppBar position="static" elevation={0} color="primary">
         <Toolbar>
           <Typography flexGrow={1} fontSize={20} variant="h6" component="div">
             Olá, {user?.name.split(" ")[0]}

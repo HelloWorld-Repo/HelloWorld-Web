@@ -24,6 +24,9 @@ const theme = createTheme({
       main: "#ff7575",
     },
     dark: { main: "#202020" },
+    background: {
+      default: "#FCFCFC",
+    },
   },
   typography: {
     fontFamily: "Text Me One",
@@ -35,7 +38,7 @@ const theme = createTheme({
     h2: {
       fontFamily: "Londrina Shadow",
       fontSize: 30,
-    }
+    },
   },
   components: {
     MuiCssBaseline: {
