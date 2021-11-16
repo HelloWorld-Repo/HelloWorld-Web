@@ -45,11 +45,13 @@ const ClassDataTable = ({ rows }) => {
 };
 
 ClassDataTable.propTypes = {
-  rows: PropTypes.arrayOf({
-    name: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    users: PropTypes.array,
-  }).isRequired,
+  rows: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      users: PropTypes.array,
+    })
+  ).isRequired,
 };
 
 export default ClassDataTable;
