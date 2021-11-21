@@ -1,11 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  ButtonBase,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { ButtonBase, Card, CardContent, Grid, Typography } from "@mui/material";
 import { Box, useTheme } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import useStyles from "./styles";
@@ -34,7 +28,7 @@ const Home = () => {
       title: "Usuários",
       id: 1,
       content: [
-        { title: "Turmas", link: "/class", id: 1 },
+        { title: "Turmas", link: "/classes", id: 1 },
         { title: "Usuários", link: "/user", id: 2 },
       ],
     },

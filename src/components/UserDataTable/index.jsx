@@ -13,7 +13,7 @@ import {
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
 
-const ClassDataTable = ({ rows }) => {
+const UserDataTable = ({ users, sampleMode = false }) => {
   const navigate = useNavigate();
 
   return (
@@ -21,28 +21,21 @@ const ClassDataTable = ({ rows }) => {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
             <TableCell>Nome</TableCell>
-            <TableCell>Qtd de Alunos</TableCell>
+            <TableCell>E-mail</TableCell>
             <TableCell>Ver</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {users.map((user) => (
             <TableRow
-              key={row.name}
+              key={user.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.users.length}</TableCell>
+              <TableCell>{user.name}</TableCell>
+              <TableCell>{user.email}</TableCell>
               <TableCell>
-                <IconButton
-                  aria-label="Visualizar Turma"
-                  onClick={() =>
-                    navigate("/class/detail", { state: { classItem: row } })
-                  }
-                >
+                <IconButton aria-label="Visualizar Aluno">
                   <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
                 </IconButton>
               </TableCell>
@@ -54,14 +47,12 @@ const ClassDataTable = ({ rows }) => {
   );
 };
 
-ClassDataTable.propTypes = {
-  rows: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      users: PropTypes.array,
-    })
-  ).isRequired,
+UserDataTable.propTypes = {
+  users: PropTypes.arrayOf({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired,
+  sampleMode: PropTypes.bool,
 };
 
-export default ClassDataTable;
+export default UserDataTable;

@@ -6,6 +6,8 @@ import {
   Box,
   Backdrop,
   CircularProgress,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 import { createClass, getClasses } from "../../services/ClassService";
@@ -27,7 +29,7 @@ const StudantClass = () => {
         const classes = await getClasses();
         setClasses(classes);
       } catch (error) {
-        setError(error);
+        setError(error || "Ocorreu um erro ao recuperar as turmas");
       } finally {
         setLoading(false);
       }
@@ -43,7 +45,7 @@ const StudantClass = () => {
       const newClass = await createClass(values);
       setClasses((oldArray) => [...oldArray, { ...newClass, users: [] }]);
     } catch (error) {
-      setError(error);
+      setError(error || "Ocorreu um erro ao criar a turma");
     } finally {
       setLoading(false);
     }
@@ -65,12 +67,25 @@ const StudantClass = () => {
       >
         Turmas
       </Typography>
-      <ClassDataTable rows={classes} />
+      <ClassDataTable rows={classes || []} />
       <CreateClassDialog
         open={modalOpened === "create"}
         onClose={() => setModalOpened("")}
         onSubmit={onSubmitCreateForm}
       />
+      <Snackbar
+        open={!!error}
+        autoHideDuration={6000}
+        onClose={() => setError(undefined)}
+      >
+        <Alert
+          onClose={() => setError(undefined)}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          {error}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
