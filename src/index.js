@@ -19,13 +19,13 @@ import "@fontsource/text-me-one/400.css";
 const rootElement = document.getElementById("root");
 
 render(
-  <AuthProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <AuthProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router />
       </ThemeProvider>
-    </BrowserRouter>
-  </AuthProvider>,
+    </AuthProvider>
+  </BrowserRouter>,
   rootElement
 );

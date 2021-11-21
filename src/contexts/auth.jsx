@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 
 import api from "../services/api";
 import AuthService from "../services/AuthService";
+import { useNavigate } from "react-router";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadStorageData();

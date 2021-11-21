@@ -3,7 +3,7 @@ import Login from "../pages/Login";
 
 const SignRoutes = () => (
   <Switch>
-    <Route exact path="/" element={<Login />} />
+    <Route path="*" element={<Login />} />
   </Switch>
 );
 
