@@ -29,7 +29,7 @@ const UserDataTable = ({ users, sampleMode = false }) => {
         <TableBody>
           {users.map((user) => (
             <TableRow
-              key={user.id}
+              key={user.email}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell>{user.name}</TableCell>
