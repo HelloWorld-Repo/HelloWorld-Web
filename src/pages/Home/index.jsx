@@ -29,7 +29,7 @@ const Home = () => {
       id: 1,
       content: [
         { title: "Turmas", link: "/classes", id: 1 },
-        { title: "Usuários", link: "/user", id: 2 },
+        { title: "Usuários", link: "/users", id: 2 },
       ],
     },
     {

@@ -5,6 +5,7 @@ import React from "react";
 import { useAuth } from "../../contexts/auth";
 import { Logo } from "../";
 import useStyles from "./styles";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -21,11 +22,13 @@ const Navbar = () => {
           <Typography fontSize={20} component="h6">
             Olá, {user?.name.split(" ")[0]}
           </Typography>
-          <Logo
-            containerClasses={{ alignSelf: "center" }}
-            size={25}
-            color="tertiary"
-          />
+          <Link to="/">
+            <Logo
+              containerClasses={{ alignSelf: "center" }}
+              size={25}
+              color="tertiary"
+            />
+          </Link>
           <Button fontSize={20} color="inherit">
             Sair
           </Button>
