@@ -22,7 +22,7 @@ const Navbar = () => {
           <Typography fontSize={20} component="h6">
             Olá, {user?.name.split(" ")[0]}
           </Typography>
-          <Link to="/">
+          <Link to="/" style={{ textDecoration: "none" }}>
             <Logo
               containerClasses={{ alignSelf: "center" }}
               size={25}

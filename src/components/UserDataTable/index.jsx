@@ -35,7 +35,10 @@ const UserDataTable = ({ users, sampleMode = false }) => {
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>
-                <IconButton aria-label="Visualizar Aluno">
+                <IconButton
+                  aria-label="Visualizar Aluno"
+                  onClick={() => navigate("/user", { state: { user } })}
+                >
                   <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
                 </IconButton>
               </TableCell>

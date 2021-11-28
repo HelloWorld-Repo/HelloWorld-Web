@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Classes from "../pages/StudentClass";
 import Students from "../pages/Students";
 import ClassDetails from "../pages/ClassDetails";
+import StudentDetails from "../pages/StudentDetails";
 
 const OtherRoutes = () => (
   <>
@@ -12,6 +13,7 @@ const OtherRoutes = () => (
     <Switch>
       <Route path="/class/detail" element={<ClassDetails />} />
       <Route path="/users" element={<Students />} />
+      <Route path="/user" element={<StudentDetails />} />
       <Route path="/classes" element={<Classes />} />
       <Route path="/" element={<Home />} />
     </Switch>
