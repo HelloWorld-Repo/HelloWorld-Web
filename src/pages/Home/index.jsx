@@ -36,7 +36,7 @@ const Home = () => {
       title: "Jornada",
       id: 2,
       content: [
-        { title: "Módulos", link: "/module", id: 1 },
+        { title: "Módulos", link: "/modules", id: 1 },
         { title: "Capítulos", link: "/chapter", id: 2 },
         { title: "Questões", link: "/question", id: 3 },
       ],

@@ -12,19 +12,23 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
+import useDate from "../../../../hooks/useDate";
 
-const ClassDataTable = ({ rows }) => {
+const ModuleDataTable = ({ rows }) => {
   const navigate = useNavigate();
+
+  const { formatToBrDate } = useDate();
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="tabela de módulos">
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
+            <TableCell>Posição</TableCell>
             <TableCell>Nome</TableCell>
-            <TableCell>Qtd de Alunos</TableCell>
-            <TableCell>Ver</TableCell>
+            <TableCell>Data de Criação</TableCell>
+            <TableCell>Visualizar</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -34,13 +38,14 @@ const ClassDataTable = ({ rows }) => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell>{row.id}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.users.length}</TableCell>
+              <TableCell>{row.position}</TableCell>
+              <TableCell>{row.title}</TableCell>
+              <TableCell>{formatToBrDate(row.createdAt)}</TableCell>
               <TableCell>
                 <IconButton
-                  aria-label="Visualizar Turma"
+                  aria-label="Visualizar Módulo"
                   onClick={() =>
-                    navigate("/class", { state: { classItem: row } })
+                    navigate("/module", { state: { module: row } })
                   }
                 >
                   <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
@@ -54,14 +59,16 @@ const ClassDataTable = ({ rows }) => {
   );
 };
 
-ClassDataTable.propTypes = {
+ModuleDataTable.propTypes = {
   rows: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      chapters: PropTypes.array.isRequired,
       id: PropTypes.number.isRequired,
-      users: PropTypes.array,
+      position: PropTypes.number.isRequired,
     })
   ).isRequired,
 };
 
-export default ClassDataTable;
+export default ModuleDataTable;
