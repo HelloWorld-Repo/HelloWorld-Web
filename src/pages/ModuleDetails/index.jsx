@@ -4,7 +4,7 @@ import { useLocation } from "react-router";
 import PropTypes from "prop-types";
 
 import useDate from "../../hooks/useDate";
-import ChapterDataTable from "../../components/ChapterDataTable";
+import { ChapterDataTable } from "../../components";
 
 const ModuleDetails = () => {
   const { state } = useLocation();
@@ -51,7 +51,7 @@ const ModuleDetails = () => {
       >
         Capítulos
       </Typography>
-      <ChapterDataTable chapters={module.chapters} />
+      <ChapterDataTable chapters={module.chapters} module={module} />
     </Box>
   );
 };

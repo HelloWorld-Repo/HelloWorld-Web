@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
 import useDate from "../../hooks/useDate";
 
-const ChapterDataTable = ({ chapters }) => {
+const ChapterDataTable = ({ chapters, module }) => {
   const navigate = useNavigate();
   const { formatToBrDate } = useDate();
 
@@ -24,6 +24,7 @@ const ChapterDataTable = ({ chapters }) => {
         <TableHead>
           <TableRow>
             <TableCell>Nome</TableCell>
+            <TableCell>Módulo</TableCell>
             <TableCell>Posição</TableCell>
             <TableCell>Data de Criação</TableCell>
             <TableCell>Ver</TableCell>
@@ -36,6 +37,7 @@ const ChapterDataTable = ({ chapters }) => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell>{chapter.title}</TableCell>
+              <TableCell>{chapter?.module?.title || module?.title}</TableCell>
               <TableCell>{chapter.position}</TableCell>
               <TableCell>{formatToBrDate(chapter?.createdAt)}</TableCell>
               <TableCell>
@@ -56,10 +58,19 @@ const ChapterDataTable = ({ chapters }) => {
 
 ChapterDataTable.propTypes = {
   chapters: PropTypes.arrayOf({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
     createdAt: PropTypes.string.isRequired,
+    module: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    }).isRequired,
   }).isRequired,
+  module: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }),
 };
 
 export default ChapterDataTable;

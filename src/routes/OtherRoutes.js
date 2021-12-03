@@ -8,6 +8,7 @@ import Modules from "../pages/Modules";
 import ClassDetails from "../pages/ClassDetails";
 import StudentDetails from "../pages/StudentDetails";
 import ModuleDetails from "../pages/ModuleDetails";
+import Chapters from "../pages/Chapters";
 
 const OtherRoutes = () => (
   <>
@@ -19,6 +20,7 @@ const OtherRoutes = () => (
       <Route path="/class" element={<ClassDetails />} />
       <Route path="/module" element={<ModuleDetails />} />
       <Route path="/modules" element={<Modules />} />
+      <Route path="/chapters" element={<Chapters />} />
       <Route path="/" element={<Home />} />
     </Switch>
   </>

@@ -10,3 +10,14 @@ export const getModules = async () => {
       throw error?.response?.data;
     });
 };
+
+export const getChapters = async () => {
+  return await api
+    .get("chapters")
+    .then((response) => {
+      return response?.data?.data;
+    })
+    .catch((error) => {
+      throw error?.response?.data;
+    });
+};
