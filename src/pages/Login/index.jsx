@@ -1,16 +1,14 @@
 import React from "react";
 import { Grid, Button, Typography } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import { useTheme } from "@mui/material/styles";
 
 import { Logo } from "../../components";
 import LoginForm from "./components/LoginForm";
 import useStyles from "./styles";
-import clsx from "clsx";
 
-const Login = (props) => {
+const Login = () => {
   const classes = useStyles();
-  const theme = useTheme();
+
   return (
     <Grid direction="row" container className={classes.gridContainer}>
       <Grid
@@ -42,7 +40,5 @@ const Login = (props) => {
     </Grid>
   );
 };
-
-Login.propTypes = {};
 
 export default Login;

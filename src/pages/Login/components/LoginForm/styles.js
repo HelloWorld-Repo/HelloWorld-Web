@@ -5,14 +5,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     display: "flex",
     width: "100%",
-    padding: theme.spacing(3),
+    padding: 24,
+    // padding: theme.spacing(3),
     maxWidth: 400,
   },
   input: {
-    margin: theme.spacing(2),
+    margin: 16,
+    // margin: theme.spacing(2),
   },
   buttonContainer: {
-    padding: theme.spacing(1, 0),
+    padding: "8, 0",
+    // padding: theme.spacing(1, 0),
   },
 }));
 

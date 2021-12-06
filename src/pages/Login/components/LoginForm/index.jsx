@@ -7,9 +7,9 @@ import {
   Box,
   FormHelperText,
   CircularProgress,
-  Backdrop
+  Backdrop,
+  useTheme,
 } from "@mui/material";
-import { useTheme } from "@mui/styles";
 import * as Yup from "yup";
 
 import { useAuth } from "../../../../contexts/auth";
