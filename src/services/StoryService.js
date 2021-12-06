@@ -21,3 +21,14 @@ export const getChapters = async () => {
       throw error?.response?.data;
     });
 };
+
+export const getQuestions = async (chapterId) => {
+  return await api
+    .get(`questions?chapterId=${chapterId}`)
+    .then((response) => {
+      return response?.data?.data;
+    })
+    .catch((error) => {
+      throw error?.response?.data;
+    });
+};
