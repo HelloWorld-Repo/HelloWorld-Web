@@ -32,7 +32,7 @@ const QuestionsDataTable = ({ chapterId }) => {
     const loadData = async () => {
       try {
         setLoading(true);
-        const response = await getQuestions(chapterId);
+        const response = await getQuestions(chapterId ?? undefined);
         setQuestions(response);
       } catch (error) {
         console.error(error);
@@ -53,22 +53,22 @@ const QuestionsDataTable = ({ chapterId }) => {
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
+            <TableCell>Módulo</TableCell>
+            <TableCell>Capítulo</TableCell>
             <TableCell>Texto</TableCell>
-            <TableCell>Qtd opções</TableCell>
-            <TableCell>Data de Criação</TableCell>
             <TableCell>Ver</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {questions.map((question) => (
+          {questions?.map((question) => (
             <TableRow
               key={question.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell>{question.id}</TableCell>
+              <TableCell>{question.chapter?.module?.title}</TableCell>
+              <TableCell>{question.chapter?.title}</TableCell>
               <TableCell>{question.description}</TableCell>
-              <TableCell>{question?.options?.length || 0}</TableCell>
-              <TableCell>{formatToBrDate(question.createdAt)}</TableCell>
               <TableCell>
                 <IconButton aria-label="Visualizar Questão">
                   <ArrowForwardIosIcon sx={{ fontSize: 20 }} />

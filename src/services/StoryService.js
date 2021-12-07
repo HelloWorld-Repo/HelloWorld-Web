@@ -23,8 +23,12 @@ export const getChapters = async () => {
 };
 
 export const getQuestions = async (chapterId) => {
+  console.log(
+    "concat",
+    `questions${!!chapterId ? `?chapterId=${chapterId}` : ""}`
+  );
   return await api
-    .get(`questions?chapterId=${chapterId}`)
+    .get(`questions${!!chapterId ? `?chapterId=${chapterId}` : ""}`)
     .then((response) => {
       return response?.data?.data;
     })
