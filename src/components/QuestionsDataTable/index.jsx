@@ -18,11 +18,9 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
 
 import { getQuestions } from "../../services/StoryService";
-import useDate from "../../hooks/useDate";
 
 const QuestionsDataTable = ({ chapterId }) => {
   const navigate = useNavigate();
-  const { formatToBrDate } = useDate();
 
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);

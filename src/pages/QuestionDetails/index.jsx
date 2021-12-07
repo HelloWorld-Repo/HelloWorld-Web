@@ -3,7 +3,6 @@ import { Typography, useTheme, Box } from "@mui/material";
 import { useLocation } from "react-router";
 
 import useDate from "../../hooks/useDate";
-import { ChapterDataTable } from "../../components";
 import OptionsDataTable from "./components/OptionsDataTable";
 
 const QuestionDetails = () => {
@@ -55,28 +54,5 @@ const QuestionDetails = () => {
     </Box>
   );
 };
-
-// QuestionDetails.propTypes = {
-//   question: PropTypes.shape({
-//     createdAt: PropTypes.string.isRequired,
-//     id: PropTypes.number.isRequired,
-//     description: PropTypes.string.isRequired,
-//     type: PropTypes.number.isRequired,
-//     chapter: PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       title: PropTypes.string.isRequired,
-//       module: PropTypes.shape({
-//         id: PropTypes.number.isRequired,
-//         title: PropTypes.string.isRequired,
-//       }).isRequired,
-//     }).isRequired,
-//     options: PropTypes.arrayOf({
-//       text: PropTypes.string.isRequired,
-//       id: PropTypes.number.isRequired,
-//       isRight: PropTypes.bool.isRequired,
-//       createdAt: PropTypes.string.isRequired,
-//     }).isRequired,
-//   }).isRequired,
-// };
 
 export default QuestionDetails;
