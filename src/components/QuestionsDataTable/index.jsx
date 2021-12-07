@@ -27,7 +27,7 @@ const QuestionsDataTable = ({ chapterId }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-  
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -70,7 +70,10 @@ const QuestionsDataTable = ({ chapterId }) => {
               <TableCell>{question.chapter?.title}</TableCell>
               <TableCell>{question.description}</TableCell>
               <TableCell>
-                <IconButton aria-label="Visualizar Questão">
+                <IconButton
+                  aria-label="Visualizar Questão"
+                  onClick={() => navigate("/question", { state: { question } })}
+                >
                   <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
                 </IconButton>
               </TableCell>

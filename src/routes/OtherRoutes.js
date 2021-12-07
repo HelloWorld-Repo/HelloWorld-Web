@@ -11,6 +11,7 @@ import ModuleDetails from "../pages/ModuleDetails";
 import ChapterDetails from "../pages/ChapterDetails";
 import Chapters from "../pages/Chapters";
 import Questions from "../pages/Questions";
+import QuestionDetails from "../pages/QuestionDetails";
 
 const OtherRoutes = () => (
   <>
@@ -25,7 +26,7 @@ const OtherRoutes = () => (
       <Route path="/chapters" element={<Chapters />} />
       <Route path="/chapter" element={<ChapterDetails />} />
       <Route path="/questions" element={<Questions />} />
-      {/* <Route path="/chapter" element={<ChapterDetails />} /> */}
+      <Route path="/question" element={<QuestionDetails />} />
       <Route path="/" element={<Home />} />
     </Switch>
   </>
