@@ -64,3 +64,14 @@ export const getModule = async (id) => {
       throw error?.response?.data;
     });
 };
+
+export const updateChapter = async (chapter) => {
+  return api
+    .patch(`chapter`, chapter)
+    .then((response) => {
+      return response?.data?.data;
+    })
+    .catch((error) => {
+      throw error?.response?.data;
+    });
+};

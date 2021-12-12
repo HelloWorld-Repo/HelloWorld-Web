@@ -1,20 +1,72 @@
-import React from "react";
-import { Typography, useTheme, Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Typography,
+  useTheme,
+  Box,
+  Button,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import { useLocation } from "react-router";
 import PropTypes from "prop-types";
 import ReactMarkdown from "react-markdown";
 
 import useStyles from "./styles";
 import useDate from "../../hooks/useDate";
-import { QuestionsDataTable } from "../../components";
+import { ChapterFormDialog, QuestionsDataTable } from "../../components";
+import { getChapter, updateChapter } from "../../services/StoryService";
 
 const ChapterDetails = () => {
-  const { state } = useLocation();
-  const { formatToBrDate } = useDate();
-  const chapter = state.chapter;
   const classes = useStyles();
   const theme = useTheme();
-  
+  const { state } = useLocation();
+  const { formatToBrDate } = useDate();
+
+  const [openedModal, setOpenedModal] = useState("");
+  const [chapter, setChapter] = useState(state?.chapter || {});
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({ type: "", message: "" });
+
+  const loadChapter = async () => {
+    try {
+      setLoading(true);
+      const response = await getChapter(chapter.id);
+      setChapter(response);
+    } catch (error) {
+      setAlert({
+        message: error || "Ocorreu um erro ao recuperar o módulo",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const loadData = async () => {
+      await loadChapter();
+    };
+
+    loadData();
+  }, []);
+
+  const onSubmitUpdateChapter = async (values) => {
+    try {
+      setLoading(true);
+      await updateChapter({ id: chapter.id, ...values });
+      await loadChapter();
+      setOpenedModal("");
+      setAlert({ message: "Deu tudo certo com a atualização do capítulo!" });
+    } catch (error) {
+      setAlert({
+        message: error || "Ocorreu um erro ao atualizar o capítulo",
+        type: "failure",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box p={theme.spacing(3, 5)}>
       <Typography
@@ -25,6 +77,15 @@ const ChapterDetails = () => {
       >
         {`Questão "${chapter.title}"`}
       </Typography>
+      <Box display="flex" justifyContent="end">
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => setOpenedModal("updateChapter")}
+        >
+          Editar
+        </Button>
+      </Box>
       <Typography
         color={theme.palette.secondary.contrastText}
         variant="h2"
@@ -60,6 +121,30 @@ const ChapterDetails = () => {
         Questões
       </Typography>
       <QuestionsDataTable chapterId={chapter.id} />
+      <Snackbar
+        open={!!alert?.message}
+        autoHideDuration={6000}
+        onClose={() => setAlert({})}
+      >
+        <Alert
+          onClose={() => setAlert({})}
+          severity={alert?.type}
+          sx={{ width: "100%" }}
+        >
+          {alert?.message}
+        </Alert>
+      </Snackbar>
+
+      {openedModal === "updateChapter" && (
+        <ChapterFormDialog
+          open={true}
+          onClose={() => setOpenedModal("")}
+          onSubmit={onSubmitUpdateChapter}
+          chapter={chapter}
+          title="Atualizar capítulo"
+          submitText="Salvar"
+        />
+      )}
     </Box>
   );
 };
