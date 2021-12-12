@@ -23,12 +23,40 @@ export const getChapters = async () => {
 };
 
 export const getQuestions = async (chapterId) => {
-  console.log(
-    "concat",
-    `questions${!!chapterId ? `?chapterId=${chapterId}` : ""}`
-  );
   return await api
     .get(`questions${!!chapterId ? `?chapterId=${chapterId}` : ""}`)
+    .then((response) => {
+      return response?.data?.data;
+    })
+    .catch((error) => {
+      throw error?.response?.data;
+    });
+};
+
+export const createChapter = async (chapter) => {
+  return api
+    .post("chapter", chapter)
+    .then((response) => {
+      return response?.data?.data;
+    })
+    .catch((error) => {
+      throw error?.response?.data;
+    });
+};
+
+export const getChapter = async (id) => {
+  return api
+    .get(`chapter?id=${id}`)
+    .then((response) => {
+      return response?.data?.data;
+    })
+    .catch((error) => {
+      throw error?.response?.data;
+    });
+};
+export const getModule = async (id) => {
+  return api
+    .get(`module?id=${id}`)
     .then((response) => {
       return response?.data?.data;
     })

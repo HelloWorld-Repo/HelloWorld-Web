@@ -13,7 +13,7 @@ const theme = createTheme({
     },
     secondary: {
       main: "#00DFC0",
-      contrastText: "#202020",
+      contrastText: "#545454",
     },
     tertiary: {
       main: "#F6F6F6",
@@ -32,8 +32,9 @@ const theme = createTheme({
     fontFamily: "Text Me One",
     fontSize: 18,
     h1: {
-      fontFamily: "Londrina Shadow",
+      fontFamily: "Londrina Solid",
       fontSize: 50,
+      fontWeight: "700"
     },
     h2: {
       fontFamily: "Londrina Shadow",

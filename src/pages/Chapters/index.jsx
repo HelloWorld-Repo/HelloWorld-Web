@@ -10,29 +10,35 @@ import {
   Alert,
 } from "@mui/material";
 
-import { getChapters } from "../../services/StoryService";
-import CreateClassDialog from "./components/CreateClassDialog";
-import { ChapterDataTable } from "../../components";
+import { createChapter, getChapters } from "../../services/StoryService";
+import { ChapterDataTable, ChapterFormDialog } from "../../components";
 
 const Module = () => {
   const [loading, setLoading] = useState(false);
   const [chapters, setChapters] = useState([]);
   const [modalOpened, setModalOpened] = useState("");
-  const [error, setError] = useState();
+  const [alert, setAlert] = useState({ type: "", message: "" });
 
   const theme = useTheme();
 
+  const loadChapters = async () => {
+    try {
+      setLoading(true);
+      const chapters = await getChapters();
+      setChapters(chapters);
+    } catch (error) {
+      setAlert({
+        message: error || "Ocorreu um erro ao recuperar os capítulos",
+        type: "failure",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const loadData = async () => {
-      try {
-        setLoading(true);
-        const chapters = await getChapters();
-        setChapters(chapters);
-      } catch (error) {
-        setError(error || "Ocorreu um erro ao recuperar os capítulos");
-      } finally {
-        setLoading(false);
-      }
+      await loadChapters();
     };
 
     loadData();
@@ -40,12 +46,16 @@ const Module = () => {
 
   const onSubmitCreateForm = async (values) => {
     try {
-      setModalOpened("");
       setLoading(true);
-      // const newClass = await createClass(values);
-      // setChapters((oldArray) => [...oldArray, { ...newClass, users: [] }]);
+      await createChapter(values);
+      await loadChapters();
+      setModalOpened("");
+      setAlert({ type: "success", message: "Deu tudo certo ao criar o capítulo!" });
     } catch (error) {
-      setError(error || "Ocorreu um erro ao criar o capítulo");
+      setAlert({
+        message: error || "Ocorreu um erro ao recuperar os módulos",
+        type: "failure",
+      });
     } finally {
       setLoading(false);
     }
@@ -68,22 +78,26 @@ const Module = () => {
         Capítulos
       </Typography>
       <ChapterDataTable chapters={chapters || []} />
-      <CreateClassDialog
-        open={modalOpened === "create"}
-        onClose={() => setModalOpened("")}
-        onSubmit={onSubmitCreateForm}
-      />
+      {modalOpened === "create" && (
+        <ChapterFormDialog
+          open={true}
+          onClose={() => setModalOpened("")}
+          onSubmit={onSubmitCreateForm}
+          title="Criar novo capítulo"
+          submitText="Criar capítulo"
+        />
+      )}
       <Snackbar
-        open={!!error}
+        open={!!alert.message}
         autoHideDuration={6000}
-        onClose={() => setError(undefined)}
+        onClose={() => setAlert({})}
       >
         <Alert
-          onClose={() => setError(undefined)}
-          severity="error"
+          onClose={() => setAlert({})}
+          severity={alert?.type}
           sx={{ width: "100%" }}
         >
-          {error}
+          {alert?.message}
         </Alert>
       </Snackbar>
     </Box>

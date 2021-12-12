@@ -12,12 +12,9 @@ const ChapterDetails = () => {
   const { state } = useLocation();
   const { formatToBrDate } = useDate();
   const chapter = state.chapter;
-
   const classes = useStyles();
-
-  console.log(chapter);
-
   const theme = useTheme();
+  
   return (
     <Box p={theme.spacing(3, 5)}>
       <Typography
