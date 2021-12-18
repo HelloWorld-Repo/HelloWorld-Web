@@ -26,7 +26,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { Box } from "@mui/system";
 
-const CreateChapterDialog = ({
+const ChapterFormDialog = ({
   open = false,
   onClose,
   onSubmit,
@@ -211,7 +211,7 @@ const CreateChapterDialog = ({
   );
 };
 
-CreateChapterDialog.propTypes = {
+ChapterFormDialog.propTypes = {
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
@@ -227,4 +227,4 @@ CreateChapterDialog.propTypes = {
   submitText: PropTypes.string.isRequired,
 };
 
-export default CreateChapterDialog;
+export default ChapterFormDialog;

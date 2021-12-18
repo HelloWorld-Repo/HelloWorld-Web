@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {
   Alert,
-  Backdrop,
-  CircularProgress,
   IconButton,
   Paper,
   Snackbar,
@@ -17,36 +15,12 @@ import {
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
 
-import { getQuestions } from "../../services/StoryService";
-
-const QuestionsDataTable = ({ chapterId }) => {
+const QuestionsDataTable = ({ questions = [] }) => {
   const navigate = useNavigate();
-
-  const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-        const response = await getQuestions(chapterId ?? undefined);
-        setQuestions(response);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, [chapterId]);
 
   return (
     <TableContainer component={Paper}>
-      <Backdrop open={loading}>
-        <CircularProgress />
-      </Backdrop>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -97,7 +71,15 @@ const QuestionsDataTable = ({ chapterId }) => {
 };
 
 QuestionsDataTable.propTypes = {
-  chapterId: PropTypes.number.isRequired,
+  questions: PropTypes.arrayOf({
+    id: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    chapter: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      module: PropTypes.shape({ title: PropTypes.string.isRequired })
+        .isRequired,
+    }),
+  }),
 };
 
 export default QuestionsDataTable;

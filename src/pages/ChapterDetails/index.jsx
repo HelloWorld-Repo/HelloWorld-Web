@@ -6,6 +6,8 @@ import {
   Button,
   Snackbar,
   Alert,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import { useLocation } from "react-router";
 import PropTypes from "prop-types";
@@ -14,7 +16,11 @@ import ReactMarkdown from "react-markdown";
 import useStyles from "./styles";
 import useDate from "../../hooks/useDate";
 import { ChapterFormDialog, QuestionsDataTable } from "../../components";
-import { getChapter, updateChapter } from "../../services/StoryService";
+import {
+  getChapter,
+  getQuestions,
+  updateChapter,
+} from "../../services/StoryService";
 
 const ChapterDetails = () => {
   const classes = useStyles();
@@ -25,6 +31,7 @@ const ChapterDetails = () => {
   const [openedModal, setOpenedModal] = useState("");
   const [chapter, setChapter] = useState(state?.chapter || {});
   const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState([]);
   const [alert, setAlert] = useState({ type: "", message: "" });
 
   const loadChapter = async () => {
@@ -32,6 +39,8 @@ const ChapterDetails = () => {
       setLoading(true);
       const response = await getChapter(chapter.id);
       setChapter(response);
+      const questionResponse = await getQuestions(chapter.id);
+      setQuestions(questionResponse);
     } catch (error) {
       setAlert({
         message: error || "Ocorreu um erro ao recuperar o módulo",
@@ -69,6 +78,9 @@ const ChapterDetails = () => {
 
   return (
     <Box p={theme.spacing(3, 5)}>
+      <Backdrop open={loading}>
+        <CircularProgress />
+      </Backdrop>
       <Typography
         color={theme.palette.secondary.contrastText}
         variant="h1"
@@ -120,7 +132,7 @@ const ChapterDetails = () => {
       >
         Questões
       </Typography>
-      <QuestionsDataTable chapterId={chapter.id} />
+      <QuestionsDataTable questions={questions} />
       <Snackbar
         open={!!alert?.message}
         autoHideDuration={6000}

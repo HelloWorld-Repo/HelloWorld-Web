@@ -34,7 +34,7 @@ export const getQuestions = async (chapterId) => {
 };
 
 export const createChapter = async (chapter) => {
-  return api
+  return await api
     .post("chapter", chapter)
     .then((response) => {
       return response?.data?.data;
@@ -45,7 +45,7 @@ export const createChapter = async (chapter) => {
 };
 
 export const getChapter = async (id) => {
-  return api
+  return await api
     .get(`chapter?id=${id}`)
     .then((response) => {
       return response?.data?.data;
@@ -55,7 +55,7 @@ export const getChapter = async (id) => {
     });
 };
 export const getModule = async (id) => {
-  return api
+  return await api
     .get(`module?id=${id}`)
     .then((response) => {
       return response?.data?.data;
@@ -66,8 +66,19 @@ export const getModule = async (id) => {
 };
 
 export const updateChapter = async (chapter) => {
-  return api
+  return await api
     .patch(`chapter`, chapter)
+    .then((response) => {
+      return response?.data?.data;
+    })
+    .catch((error) => {
+      throw error?.response?.data;
+    });
+};
+
+export const createQuestion = async (question) => {
+  return await api
+    .post(`question`, question)
     .then((response) => {
       return response?.data?.data;
     })

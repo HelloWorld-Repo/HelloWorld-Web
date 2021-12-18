@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   useTheme,
@@ -10,28 +10,60 @@ import {
   Alert,
 } from "@mui/material";
 
-import CreateClassDialog from "./components/CreateClassDialog";
-import { QuestionsDataTable } from "../../components";
+import { QuestionsDataTable, QuestionFormDialog } from "../../components";
+import { createQuestion, getQuestions } from "../../services/StoryService";
 
 const Questions = () => {
   const [loading, setLoading] = useState(false);
   const [modalOpened, setModalOpened] = useState("");
-  const [error, setError] = useState();
+  const [alert, setAlert] = useState();
+  const [questions, setQuestions] = useState([]);
 
   const theme = useTheme();
 
   const onSubmitCreateForm = async (values) => {
     try {
-      setModalOpened("");
       setLoading(true);
-      // const newClass = await createClass(values);
-      // setQuestions((oldArray) => [...oldArray, { ...newClass, users: [] }]);
-    } catch (error) {
-      setError(error || "Ocorreu um erro ao criar questão");
+      await createQuestion(values);
+      await loadQuestions();
+      setModalOpened("");
+      setAlert({
+        message: "Deu tudo certo ao criar a questão",
+        type: "success",
+      });
+    } catch (error) {      
+      setAlert({
+        message: error || "Ocorreu um erro ao criar questão",
+        type: "failure",
+      });
+
     } finally {
       setLoading(false);
     }
   };
+
+  const loadQuestions = async () => {
+    try {
+      setLoading(true);
+      const response = await getQuestions();
+      setQuestions(response);
+    } catch (error) {
+      setAlert({
+        message: error || "Ocorreu um erro ao buscar as questões",
+        type: "failure",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const loadData = async () => {
+      await loadQuestions();
+    };
+
+    loadData();
+  }, []);
 
   return (
     <Box m={theme.spacing(4)}>
@@ -49,23 +81,25 @@ const Questions = () => {
       >
         Questões
       </Typography>
-      <QuestionsDataTable />
-      <CreateClassDialog
+      <QuestionsDataTable questions={questions} />
+      <QuestionFormDialog
         open={modalOpened === "create"}
         onClose={() => setModalOpened("")}
         onSubmit={onSubmitCreateForm}
+        title="Criar questão"
+        submitText="Criar"
       />
       <Snackbar
-        open={!!error}
+        open={!!alert?.message}
         autoHideDuration={6000}
-        onClose={() => setError(undefined)}
+        onClose={() => setAlert({})}
       >
         <Alert
-          onClose={() => setError(undefined)}
-          severity="error"
+          onClose={() => setAlert({})}
+          severity={alert?.type}
           sx={{ width: "100%" }}
         >
-          {error}
+          {alert?.message}
         </Alert>
       </Snackbar>
     </Box>
