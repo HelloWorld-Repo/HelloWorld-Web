@@ -11,16 +11,18 @@ const Route = () => {
   useEffect(() => {
     api.interceptors.response.use(
       function (response) {
-        return response;
+        return response?.data?.data;
       },
       function (error) {
-        if (error.response.status === 401) {
+        if (error?.response?.status === 401) {
           signOut();
         }
+
+        return Promise.reject(error?.response?.data?.message);
       }
     );
-  }, [signOut]);
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return signed ? <OtherRoutes /> : <SignRoutes />;
 };
