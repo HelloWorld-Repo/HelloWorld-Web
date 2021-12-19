@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -41,32 +41,6 @@ const QuestionFormDialog = ({
 
   const theme = useTheme();
 
-  const loadModules = async () => {
-    try {
-      setLoading(true);
-      const response = await getChapters();
-      setChapters(response);
-
-      formik.setFieldValue(
-        "chapterId",
-        question?.chapterId || chapterId || "",
-        true
-      );
-    } catch (error) {
-      setError(`Não foi possível recuperar os capítulos: ${error}`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const loadData = async () => {
-      await loadModules();
-    };
-
-    loadData();
-  }, []);
-
   const formik = useFormik({
     initialValues: {
       description: question?.description || "",
@@ -87,6 +61,33 @@ const QuestionFormDialog = ({
       }
     },
   });
+
+  const loadModules = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await getChapters();
+      setChapters(response);
+
+      formik.setFieldValue(
+        "chapterId",
+        question?.chapterId || chapterId || "",
+        true
+      );
+    } catch (error) {
+      setError(`Não foi possível recuperar os capítulos: ${error}`);
+    } finally {
+      setLoading(false);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapterId, question?.chapterId]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      await loadModules();
+    };
+
+    loadData();
+  }, [loadModules]);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>

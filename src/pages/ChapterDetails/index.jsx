@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Typography,
   useTheme,
@@ -15,8 +15,13 @@ import ReactMarkdown from "react-markdown";
 
 import useStyles from "./styles";
 import useDate from "../../hooks/useDate";
-import { ChapterFormDialog, QuestionsDataTable } from "../../components";
 import {
+  ChapterFormDialog,
+  QuestionFormDialog,
+  QuestionsDataTable,
+} from "../../components";
+import {
+  createQuestion,
   getChapter,
   getQuestions,
   updateChapter,
@@ -32,9 +37,9 @@ const ChapterDetails = () => {
   const [chapter, setChapter] = useState(state?.chapter || {});
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const [alert, setAlert] = useState({ type: "", message: "" });
+  const [alert, setAlert] = useState({});
 
-  const loadChapter = async () => {
+  const loadChapter = useCallback(async () => {
     try {
       setLoading(true);
       const response = await getChapter(chapter.id);
@@ -49,7 +54,7 @@ const ChapterDetails = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [chapter.id]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -57,7 +62,7 @@ const ChapterDetails = () => {
     };
 
     loadData();
-  }, []);
+  }, [loadChapter]);
 
   const onSubmitUpdateChapter = async (values) => {
     try {
@@ -65,11 +70,34 @@ const ChapterDetails = () => {
       await updateChapter({ id: chapter.id, ...values });
       await loadChapter();
       setOpenedModal("");
-      setAlert({ message: "Deu tudo certo com a atualização do capítulo!" });
+      setAlert({
+        message: "Deu tudo certo com a atualização do capítulo!",
+        type: "success",
+      });
     } catch (error) {
       setAlert({
         message: error || "Ocorreu um erro ao atualizar o capítulo",
-        type: "failure",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onSubmitCreateQuestion = async (question) => {
+    try {
+      setLoading(true);
+      await createQuestion(question);
+      await loadChapter();
+      setOpenedModal("");
+      setAlert({
+        type: "success",
+        message: "Deu tudo certo ao criar a nova questão!",
+      });
+    } catch (error) {
+      setAlert({
+        message: "Ocorreu um erro ao criar a questão",
+        type: "error",
       });
     } finally {
       setLoading(false);
@@ -125,13 +153,18 @@ const ChapterDetails = () => {
           {chapter.explanation}
         </ReactMarkdown>
       </Box>
-      <Typography
-        color={theme.palette.secondary.contrastText}
-        variant="h2"
-        margin={theme.spacing(4, 0)}
-      >
-        Questões
-      </Typography>
+      <Box display="flex" justifyContent="space-between">
+        <Typography
+          color={theme.palette.secondary.contrastText}
+          variant="h2"
+          margin={theme.spacing(4, 0)}
+        >
+          Questões
+        </Typography>
+        <Button onClick={() => setOpenedModal("createQuestion")}>
+          Adicionar Questão
+        </Button>
+      </Box>
       <QuestionsDataTable questions={questions} />
       <Snackbar
         open={!!alert?.message}
@@ -155,6 +188,16 @@ const ChapterDetails = () => {
           chapter={chapter}
           title="Atualizar capítulo"
           submitText="Salvar"
+        />
+      )}
+      {openedModal === "createQuestion" && (
+        <QuestionFormDialog
+          open={true}
+          onClose={() => setOpenedModal("")}
+          onSubmit={onSubmitCreateQuestion}
+          title="Adicionar Questão"
+          submitText="Criar"
+          chapterId={chapter?.id}
         />
       )}
     </Box>

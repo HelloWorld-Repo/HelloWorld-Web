@@ -28,8 +28,8 @@ const Module = () => {
       setChapters(chapters);
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao recuperar os capítulos",
-        type: "failure",
+        message: "Ocorreu um erro ao recuperar os capítulos",
+        type: "error",
       });
     } finally {
       setLoading(false);
@@ -50,11 +50,14 @@ const Module = () => {
       await createChapter(values);
       await loadChapters();
       setModalOpened("");
-      setAlert({ type: "success", message: "Deu tudo certo ao criar o capítulo!" });
+      setAlert({
+        type: "success",
+        message: "Deu tudo certo ao criar o capítulo!",
+      });
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao recuperar os módulos",
-        type: "failure",
+        message: "Ocorreu um erro ao recuperar os módulos",
+        type: "error",
       });
     } finally {
       setLoading(false);
@@ -88,7 +91,7 @@ const Module = () => {
         />
       )}
       <Snackbar
-        open={!!alert.message}
+        open={!!alert?.message}
         autoHideDuration={6000}
         onClose={() => setAlert({})}
       >

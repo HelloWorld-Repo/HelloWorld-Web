@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import api from "../services/api";
-import AuthService from "../services/AuthService";
+import { login } from "../services/AuthService";
 
 const AuthContext = createContext({});
 
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   const signIn = async (email, password) => {
     try {
-      const response = await AuthService.login(email, password);
+      const response = await login(email, password);
 
       if (response?.user) {
         if (!response?.user?.isAdmin) {

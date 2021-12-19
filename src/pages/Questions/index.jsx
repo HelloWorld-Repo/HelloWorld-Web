@@ -31,12 +31,11 @@ const Questions = () => {
         message: "Deu tudo certo ao criar a questão",
         type: "success",
       });
-    } catch (error) {      
+    } catch (error) {
       setAlert({
         message: error || "Ocorreu um erro ao criar questão",
-        type: "failure",
+        type: "error",
       });
-
     } finally {
       setLoading(false);
     }
@@ -50,7 +49,7 @@ const Questions = () => {
     } catch (error) {
       setAlert({
         message: error || "Ocorreu um erro ao buscar as questões",
-        type: "failure",
+        type: "error",
       });
     } finally {
       setLoading(false);
