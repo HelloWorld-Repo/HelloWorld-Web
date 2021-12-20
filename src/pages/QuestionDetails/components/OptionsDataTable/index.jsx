@@ -25,7 +25,7 @@ const OptionsDataTable = ({ options }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {options.map((option) => (
+          {options?.map((option) => (
             <TableRow
               key={option.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -50,7 +50,7 @@ OptionsDataTable.propTypes = {
       createdAt: PropTypes.string.isRequired,
       isRight: PropTypes.bool.isRequired,
     })
-  ).isRequired,
+  ),
 };
 
 export default OptionsDataTable;

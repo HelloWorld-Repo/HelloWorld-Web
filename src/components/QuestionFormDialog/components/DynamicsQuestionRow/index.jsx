@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import useStyles from "./styles";
 
-const DynamicsQuestionRow = ({ onChangeOptions, options = [] }) => {
+const DynamicsQuestionRow = ({ onChangeOptions, options = [], questionId }) => {
   const classes = useStyles();
 
   const theme = useTheme();
@@ -24,7 +24,6 @@ const DynamicsQuestionRow = ({ onChangeOptions, options = [] }) => {
   const handleRemove = (index) => {
     let tempArray = [...options];
     tempArray.splice(index, 1);
-    console.log(tempArray);
     onChangeOptions(tempArray);
   };
 
@@ -38,7 +37,7 @@ const DynamicsQuestionRow = ({ onChangeOptions, options = [] }) => {
       isRight: yup.boolean().required(),
     }),
     onSubmit: (values) => {
-      onChangeOptions([...options, values]);
+      onChangeOptions([...options, { ...values, questionId }]);
       formik.resetForm();
     },
   });
@@ -49,7 +48,7 @@ const DynamicsQuestionRow = ({ onChangeOptions, options = [] }) => {
         Opções de Resposta
       </Typography>
       <Box className={classes.optionsContainer}>
-        {options.map((option, index) => (
+        {options?.map((option, index) => (
           <Box
             key={index}
             display="flex"
@@ -135,6 +134,7 @@ DynamicsQuestionRow.propTypes = {
       id: PropTypes.number,
     })
   ),
+  questionId: PropTypes.number,
 };
 
 export default DynamicsQuestionRow;

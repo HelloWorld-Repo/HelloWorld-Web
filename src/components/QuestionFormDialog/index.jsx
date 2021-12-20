@@ -78,7 +78,7 @@ const QuestionFormDialog = ({
     } finally {
       setLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapterId, question?.chapterId]);
 
   useEffect(() => {
@@ -138,6 +138,7 @@ const QuestionFormDialog = ({
             onBlur={formik.handleBlur}
             name="chapterId"
             margin="dense"
+            disabled={!!question && !!question?.chapterId}
           >
             <MenuItem value={""}>
               <Typography fontSize={18}>{`Selecione o capítulo`}</Typography>
@@ -185,7 +186,11 @@ const QuestionFormDialog = ({
             <FormHelperText>{formik.errors?.type}</FormHelperText>
           )}
         </FormControl>
-        <DynamicsQuestionRow options={options} onChangeOptions={setOptions} />
+        <DynamicsQuestionRow
+          options={options}
+          onChangeOptions={setOptions}
+          questionId={question?.id}
+        />
         <Snackbar
           open={!!error}
           autoHideDuration={6000}
@@ -217,7 +222,7 @@ QuestionFormDialog.propTypes = {
   question: PropTypes.shape({
     id: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
-    type: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
     chapterId: PropTypes.number.isRequired,
     options: PropTypes.arrayOf({
       text: PropTypes.string.isRequired,

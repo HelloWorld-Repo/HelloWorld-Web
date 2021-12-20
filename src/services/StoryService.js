@@ -30,5 +30,13 @@ export const updateChapter = async (chapter) => {
 };
 
 export const createQuestion = async (question) => {
-  await api.post(`question`, question);
+  return await api.post(`question`, question);
+};
+
+export const updateQuestion = async (question) => {
+  return await api.patch(`question`, question);
+};
+
+export const getQuestion = async (id) => {
+  return await api.get(`question?id=${id}`);
 };
