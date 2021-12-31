@@ -1,0 +1,50 @@
+name: Production Continuous Delivery
+
+on:
+  push:
+    branches: 
+      - development
+
+jobs:
+  docker-build-push:
+    name: Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: read
+      packages: write 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Log in to GitHub Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: docker.pkg.github.com
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build container image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            docker.pkg.github.com/helloworld-repo/helloworld-web/app:latest
+
+  deploy:
+    name: Deploy package to DigitalOcean 
+    needs: docker-build-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy package to DigitalOcean
+        uses: appleboy/ssh-action@master
+        env:
+            GITHUB_USERNAME: ${{ github.actor }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          host: ${{ secrets.PRODUCTION_IP }}
+          envs: GITHUB_USERNAME, GITHUB_TOKEN
+          script: |
+            cd hello-world/app
+            docker login docker.pkg.github.com -u $GITHUB_USERNAME -p $GITHUB_TOKEN
+            docker pull docker.pkg.github.com/helloworld-repo/helloworld-web/app:latest
+            docker-compose -f docker-compose.prod.yml up -d
+
+
