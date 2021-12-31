@@ -40,6 +40,8 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           host: ${{ secrets.PRODUCTION_IP }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          password: ${{ secrets.PRODUCTION_PASSWORD }}
           envs: GITHUB_USERNAME, GITHUB_TOKEN
           script: |
             cd hello-world/app
