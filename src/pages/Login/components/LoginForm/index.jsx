@@ -46,7 +46,7 @@ const LoginForm = () => {
         const { email, password } = values;
         await signIn(email, password);
       } catch (error) {
-        console.error(error);
+        console.error(error.message);
         setError(error?.message || "Ops, aconteceu um erro, tente novamente");
       } finally {
         setLoading(false);
@@ -75,7 +75,6 @@ const LoginForm = () => {
               : ""
           }
           error={formik.errors.email && formik.touched.email}
-          classes={{ root: classes.input }}
         />
       </FormControl>
 
@@ -95,13 +94,12 @@ const LoginForm = () => {
               : ""
           }
           error={formik.errors.password && formik.touched.password}
-          classes={{ root: classes.input }}
         />
       </FormControl>
 
       {error && <FormHelperText error>{error}</FormHelperText>}
 
-      <Box className={classes.buttonContainer}>
+      <Box padding={theme.spacing(1, 0)} marginTop={theme.spacing(2)}>
         <Button
           disabled={formik.isSubmitting || !formik.isValid}
           variant="contained"

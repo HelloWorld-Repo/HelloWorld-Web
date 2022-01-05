@@ -8,7 +8,7 @@ import useStyles from "./styles";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const classes = useStyles();
 
   return (
@@ -29,7 +29,7 @@ const Navbar = () => {
               color="tertiary"
             />
           </Link>
-          <Button fontSize={20} color="inherit">
+          <Button fontSize={20} color="inherit" onClick={() => signOut()}>
             Sair
           </Button>
         </Toolbar>

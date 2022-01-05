@@ -3,12 +3,10 @@ version: '3.7'
 services:
 
   app:
-    build: .
-    command: npm start
+    image: docker.pkg.github.com/helloworld-repo/helloworld-web/app:latest
     ports: 
       - "3001:3000"
 
     env_file:
       - .env-prod
-    environment:
-      CHOKIDAR_USEPOLLING: "true"
+    command: npm start

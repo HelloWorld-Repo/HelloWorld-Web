@@ -6,16 +6,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "100%",
     padding: 24,
-    // padding: theme.spacing(3),
     maxWidth: 400,
-  },
-  input: {
-    margin: 16,
-    // margin: theme.spacing(2),
   },
   buttonContainer: {
     padding: "8, 0",
-    // padding: theme.spacing(1, 0),
   },
 }));
 

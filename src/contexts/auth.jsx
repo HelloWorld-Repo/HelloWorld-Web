@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       if (response?.user) {
         if (!response?.user?.isAdmin) {
           throw new Error(
-            "Não autorizado. Você pode baixar o app para aprender lógica de programação :D"
+            "Você não tem autorização para acessar essa página :("
           );
         }
 

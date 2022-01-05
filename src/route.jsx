@@ -18,7 +18,7 @@ const Route = () => {
           signOut();
         }
 
-        return Promise.reject(error?.response?.data?.message);
+        return Promise.reject(error?.response?.data);
       }
     );
   // eslint-disable-next-line react-hooks/exhaustive-deps
