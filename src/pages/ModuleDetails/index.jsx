@@ -33,7 +33,7 @@ const ModuleDetails = () => {
       setModule(response);
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao recuperar o módulo",
+        message: error?.message || "Ocorreu um erro ao recuperar o módulo",
         type: "error",
       });
     } finally {
@@ -61,7 +61,7 @@ const ModuleDetails = () => {
       });
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao criar o capítulo",
+        message: error?.message || "Ocorreu um erro ao criar o capítulo",
         type: "failure",
       });
     } finally {

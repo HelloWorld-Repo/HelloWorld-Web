@@ -32,7 +32,7 @@ const Students = () => {
         setUsers(students);
         setFilteredUsers(students);
       } catch (error) {
-        setError(error || "Ocorreu um erro ao buscar os usuários");
+        setError(error?.message || "Ocorreu um erro ao buscar os usuários");
       } finally {
         setLoading(false);
       }

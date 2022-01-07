@@ -33,7 +33,7 @@ const Questions = () => {
       });
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao criar questão",
+        message: error?.message || "Ocorreu um erro ao criar questão",
         type: "error",
       });
     } finally {
@@ -48,7 +48,7 @@ const Questions = () => {
       setQuestions(response);
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao buscar as questões",
+        message: error?.message || "Ocorreu um erro ao buscar as questões",
         type: "error",
       });
     } finally {

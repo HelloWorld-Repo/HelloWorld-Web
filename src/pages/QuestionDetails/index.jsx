@@ -35,7 +35,7 @@ const QuestionDetails = () => {
       setQuestion(response);
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao recuperar a questão",
+        message: error?.message || "Ocorreu um erro ao recuperar a questão",
         type: "error",
       });
     } finally {
@@ -64,7 +64,7 @@ const QuestionDetails = () => {
       });
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao atualizar a questão",
+        message: error?.message || "Ocorreu um erro ao atualizar a questão",
         type: "error",
       });
     } finally {

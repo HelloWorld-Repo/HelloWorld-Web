@@ -29,7 +29,7 @@ const StudantClass = () => {
         const classes = await getClasses();
         setClasses(classes);
       } catch (error) {
-        setError(error || "Ocorreu um erro ao recuperar as turmas");
+        setError(error?.message || "Ocorreu um erro ao recuperar as turmas");
       } finally {
         setLoading(false);
       }
@@ -45,7 +45,7 @@ const StudantClass = () => {
       const newClass = await createClass(values);
       setClasses((oldArray) => [...oldArray, { ...newClass, users: [] }]);
     } catch (error) {
-      setError(error || "Ocorreu um erro ao criar a turma");
+      setError(error?.message || "Ocorreu um erro ao criar a turma");
     } finally {
       setLoading(false);
     }

@@ -48,7 +48,7 @@ const ChapterDetails = () => {
       setQuestions(questionResponse);
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao recuperar o módulo",
+        message: error?.message || "Ocorreu um erro ao recuperar o módulo",
         type: "error",
       });
     } finally {
@@ -76,7 +76,7 @@ const ChapterDetails = () => {
       });
     } catch (error) {
       setAlert({
-        message: error || "Ocorreu um erro ao atualizar o capítulo",
+        message: error?.message || "Ocorreu um erro ao atualizar o capítulo",
         type: "error",
       });
     } finally {

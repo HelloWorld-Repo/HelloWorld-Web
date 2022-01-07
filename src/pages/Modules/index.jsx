@@ -29,7 +29,7 @@ const Module = () => {
         const modules = await getModules();
         setModules(modules);
       } catch (error) {
-        setError(error || "Ocorreu um erro ao recuperar as turmas");
+        setError(error?.message || "Ocorreu um erro ao recuperar as turmas");
       } finally {
         setLoading(false);
       }
@@ -45,7 +45,7 @@ const Module = () => {
       // const newClass = await createClass(values);
       // setModules((oldArray) => [...oldArray, { ...newClass, users: [] }]);
     } catch (error) {
-      setError(error || "Ocorreu um erro ao criar o módulo");
+      setError(error?.message || "Ocorreu um erro ao criar o módulo");
     } finally {
       setLoading(false);
     }
