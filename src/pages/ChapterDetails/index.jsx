@@ -26,6 +26,7 @@ import {
   getQuestions,
   updateChapter,
 } from "../../services/StoryService";
+import useTitle from "../../hooks/useTitle";
 
 const ChapterDetails = () => {
   const classes = useStyles();
@@ -38,6 +39,8 @@ const ChapterDetails = () => {
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [alert, setAlert] = useState({});
+  
+  useTitle(chapter?.name || "Detalhes do capítulo");
 
   const loadChapter = useCallback(async () => {
     try {
@@ -202,19 +205,6 @@ const ChapterDetails = () => {
       )}
     </Box>
   );
-};
-
-ChapterDetails.propTypes = {
-  chapter: PropTypes.shape({
-    createdAt: PropTypes.string,
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    explanation: PropTypes.string.isRequired,
-    users: PropTypes.arrayOf({
-      name: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
 };
 
 export default ChapterDetails;

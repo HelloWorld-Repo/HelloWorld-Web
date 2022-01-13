@@ -11,9 +11,10 @@ import {
 } from "@mui/material";
 import { useLocation } from "react-router";
 
-import useDate from "../../hooks/useDate";
-import { QuestionFormDialog } from "../../components";
 import OptionsDataTable from "./components/OptionsDataTable";
+import useDate from "../../hooks/useDate";
+import useTitle from "../../hooks/useTitle";
+import { QuestionFormDialog } from "../../components";
 import { getQuestion, updateQuestion } from "../../services/StoryService";
 
 const QuestionDetails = () => {
@@ -26,7 +27,9 @@ const QuestionDetails = () => {
   const [question, setQuestion] = useState({});
   const [openedModal, setOpenedModal] = useState("");
   const [loading, setLoading] = useState("");
-  const [alert, setAlert] = useState({});
+  const [alert, setAlert] = useState();
+
+  useTitle("Detalhes da Questão");
 
   const loadQuestion = async () => {
     try {

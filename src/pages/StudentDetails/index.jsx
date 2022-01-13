@@ -1,6 +1,7 @@
 import { useTheme, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useLocation } from "react-router";
+import useTitle from "../../hooks/useTitle";
 import useDate from "../../hooks/useDate";
 
 const StudentDetails = () => {
@@ -9,6 +10,8 @@ const StudentDetails = () => {
   } = useLocation();
   const theme = useTheme();
   const { formatToBrDate } = useDate();
+
+  useTitle(user?.name || "Detalhes do Aluno");
 
   return (
     <Box p={theme.spacing(3, 5)}>

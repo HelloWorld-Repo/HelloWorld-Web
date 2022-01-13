@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useLocation } from "react-router";
 import useDate from "../../hooks/useDate";
+import useTitle from "../../hooks/useTitle";
 import { ChapterDataTable, ChapterFormDialog } from "../../components";
 import { createChapter, getModule } from "../../services/StoryService";
 
@@ -24,7 +25,9 @@ const ModuleDetails = () => {
   const [module, setModule] = useState({});
   const [openedModal, setOpenedModal] = useState("");
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState({ type: "", message: "" });
+  const [alert, setAlert] = useState();
+
+  useTitle( module?.title || 'Detalhes do Módulo')
 
   const loadModule = async () => {
     try {
@@ -62,7 +65,7 @@ const ModuleDetails = () => {
     } catch (error) {
       setAlert({
         message: error?.message || "Ocorreu um erro ao criar o capítulo",
-        type: "failure",
+        type: "error",
       });
     } finally {
       setLoading(false);

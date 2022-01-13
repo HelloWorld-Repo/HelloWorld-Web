@@ -51,10 +51,12 @@ const UserDataTable = ({ users, sampleMode = false }) => {
 };
 
 UserDataTable.propTypes = {
-  users: PropTypes.arrayOf({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  }).isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   sampleMode: PropTypes.bool,
 };
 

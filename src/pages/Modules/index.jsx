@@ -10,9 +10,10 @@ import {
   Alert,
 } from "@mui/material";
 
-import { getModules } from "../../services/StoryService";
 import ModuleDataTable from "./components/ModuleDataTable";
 import CreateClassDialog from "./components/CreateClassDialog";
+import { getModules } from "../../services/StoryService";
+import useTitle from "../../hooks/useTitle";
 
 const Module = () => {
   const [loading, setLoading] = useState(false);
@@ -21,6 +22,7 @@ const Module = () => {
   const [error, setError] = useState();
 
   const theme = useTheme();
+  useTitle("Módulos");
 
   useEffect(() => {
     const loadData = async () => {

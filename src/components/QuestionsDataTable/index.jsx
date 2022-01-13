@@ -71,15 +71,17 @@ const QuestionsDataTable = ({ questions = [] }) => {
 };
 
 QuestionsDataTable.propTypes = {
-  questions: PropTypes.arrayOf({
-    id: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    chapter: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      module: PropTypes.shape({ title: PropTypes.string.isRequired })
-        .isRequired,
-    }),
-  }),
+  questions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
+      chapter: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        module: PropTypes.shape({ title: PropTypes.string.isRequired })
+          .isRequired,
+      }),
+    })
+  ),
 };
 
 export default QuestionsDataTable;

@@ -11,9 +11,9 @@ import {
   InputAdornment,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import PropTypes from "prop-types";
 
 import { UserDataTable } from "../../components";
+import useTitle from "../../hooks/useTitle";
 import { getAllStudants } from "../../services/StudantService";
 
 const Students = () => {
@@ -23,6 +23,8 @@ const Students = () => {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [displayMessage, setDisplayMessage] = useState("");
+
+  useTitle("Alunos");
 
   useEffect(() => {
     const loadData = async () => {
@@ -100,13 +102,6 @@ const Students = () => {
       <UserDataTable users={filteredUsers} />
     </Box>
   );
-};
-
-Students.propTypes = {
-  users: PropTypes.arrayOf({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default Students;

@@ -12,6 +12,7 @@ import {
 
 import { createChapter, getChapters } from "../../services/StoryService";
 import { ChapterDataTable, ChapterFormDialog } from "../../components";
+import useTitle from "../../hooks/useTitle";
 
 const Module = () => {
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,8 @@ const Module = () => {
   const [alert, setAlert] = useState({ type: "", message: "" });
 
   const theme = useTheme();
+
+  useTitle("Capítulos");
 
   const loadChapters = async () => {
     try {

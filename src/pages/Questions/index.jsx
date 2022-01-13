@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 
 import { QuestionsDataTable, QuestionFormDialog } from "../../components";
+import useTitle from "../../hooks/useTitle";
 import { createQuestion, getQuestions } from "../../services/StoryService";
 
 const Questions = () => {
@@ -20,6 +21,7 @@ const Questions = () => {
   const [questions, setQuestions] = useState([]);
 
   const theme = useTheme();
+  useTitle("Questões");
 
   const onSubmitCreateForm = async (values) => {
     try {

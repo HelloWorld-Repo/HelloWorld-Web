@@ -3,12 +3,15 @@ import { Grid, Button, Typography, useTheme } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
 import { Logo } from "../../components";
+import useTitle from "../../hooks/useTitle";
 import LoginForm from "./components/LoginForm";
 import useStyles from "./styles";
 
 const Login = () => {
   const classes = useStyles();
   const theme = useTheme();
+
+  useTitle("Aprenda programação gratuitamente");
 
   return (
     <Grid direction="row" container className={classes.gridContainer}>

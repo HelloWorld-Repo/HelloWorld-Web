@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 
 import { createClass, getClasses } from "../../services/ClassService";
+import useTitle from "../../hooks/useTitle";
 import ClassDataTable from "./components/ClassDataTable";
 import CreateClassDialog from "./components/CreateClassDialog";
 
@@ -21,6 +22,7 @@ const StudantClass = () => {
   const [error, setError] = useState();
 
   const theme = useTheme();
+  useTitle("Turmas");
 
   useEffect(() => {
     const loadData = async () => {

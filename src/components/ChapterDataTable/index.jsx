@@ -57,7 +57,7 @@ const ChapterDataTable = ({ chapters, module }) => {
 };
 
 ChapterDataTable.propTypes = {
-  chapters: PropTypes.arrayOf({
+  chapters: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
@@ -66,10 +66,10 @@ ChapterDataTable.propTypes = {
       title: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
     }).isRequired,
-  }).isRequired,
+  })).isRequired,
   module: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    title: PropTypes.string,
+    id: PropTypes.number,
   }),
 };
 

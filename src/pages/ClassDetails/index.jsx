@@ -5,11 +5,14 @@ import PropTypes from "prop-types";
 
 import useDate from "../../hooks/useDate";
 import { UserDataTable } from "../../components";
+import useTitle from "../../hooks/useTitle";
 
 const ClassDetails = () => {
   const { state } = useLocation();
   const { formatToBrDate } = useDate();
   const classItem = state.classItem;
+
+  useTitle(classItem?.name || "Detalhes da Turma");
 
   const theme = useTheme();
   return (
@@ -50,18 +53,6 @@ const ClassDetails = () => {
       <UserDataTable users={classItem.users} />
     </Box>
   );
-};
-
-ClassDetails.propTypes = {
-  classItem: PropTypes.shape({
-    createdAt: PropTypes.string,
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    users: PropTypes.arrayOf({
-      name: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
 };
 
 export default ClassDetails;
