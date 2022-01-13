@@ -3,11 +3,14 @@ import { ButtonBase, Card, CardContent, Grid, Typography } from "@mui/material";
 import { Box, useTheme } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import useStyles from "./styles";
+import useTitle from "../../hooks/useTitle";
 
 const Home = () => {
   const theme = useTheme();
   const classes = useStyles();
   const navigate = useNavigate();
+
+  useTitle("Dashboard");
 
   const gridParams = {
     xs: 12,

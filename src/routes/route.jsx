@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 
-import { useAuth } from "./contexts/auth";
-import OtherRoutes from "./routes/OtherRoutes";
-import SignRoutes from "./routes/SignRoutes";
-import api from "./services/api";
+import { useAuth } from "../contexts/auth";
+import OtherRoutes from "./OtherRoutes";
+import SignRoutes from "./SignRoutes";
+import api from "../services/api";
 
-const Route = () => {
+const Routes = () => {
   const { signed, signOut } = useAuth();
 
   useEffect(() => {
@@ -27,4 +27,4 @@ const Route = () => {
   return signed ? <OtherRoutes /> : <SignRoutes />;
 };
 
-export default Route;
+export default Routes;

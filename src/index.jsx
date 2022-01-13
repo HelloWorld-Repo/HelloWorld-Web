@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 
 import { AuthProvider } from "./contexts/auth";
-import Router from "./route";
+import Router from "./routes/route";
 import theme from "./theme";
 
 import "@fontsource/londrina-outline/400.css";
