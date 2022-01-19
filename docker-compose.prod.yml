@@ -1,15 +1,12 @@
 version: '3.7'
 
 services:
-  app:
-    image: docker.pkg.github.com/helloworld-repo/helloworld-web/app:latest
+  postgres:
+    image: postgres:11.2-alpine
     ports:
-      - "3001:3000"
+      - '5432:5432'
     env_file:
-      - .env-prod-front
-    depends_on:
-      - api
-    command: npm start
+      - .env-prod-back
 
   api:
     image: docker.pkg.github.com/helloworld-repo/helloworld-api/server:latest
@@ -22,9 +19,20 @@ services:
       - .env-prod-back
     command: npm start
 
-  postgres:
-    image: postgres:11.2-alpine
-    ports:
-      - '5432:5432'
+  app:
+    build: .
     env_file:
-      - .env-prod-back
+      - .env-prod-front
+    depends_on:
+      - api
+    command: npm run build
+
+  nginx:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/:/etc/letsencrypt/:ro
+    depends_on:
+      - app

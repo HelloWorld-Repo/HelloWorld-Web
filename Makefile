@@ -19,5 +19,8 @@ npm:
 npm-dev:
 	docker-compose exec app npm install -D $(pacote)
 
+build:
+	docker-compose exec app npm run build
+
 exec:
 	docker-compose exec app $(comando)
