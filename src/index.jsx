@@ -1,6 +1,9 @@
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
 
 import { AuthProvider } from "./contexts/auth";
 import Router from "./routes/route";
@@ -19,12 +22,14 @@ const rootElement = document.getElementById("root");
 
 render(
   <BrowserRouter>
-    <AuthProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router />
-      </ThemeProvider>
-    </AuthProvider>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router />
+        </ThemeProvider>
+      </AuthProvider>
+    </LocalizationProvider>
   </BrowserRouter>,
   rootElement
 );

@@ -9,35 +9,42 @@ import {
   Alert,
   TextField,
   InputAdornment,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
+import { getAllStudants, registerUser } from "../../services/StudantService";
 import { UserDataTable } from "../../components";
 import useTitle from "../../hooks/useTitle";
-import { getAllStudants } from "../../services/StudantService";
+import CreateUserDialog from "./CreateUserDialog";
 
 const Students = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [error, setError] = useState();
+  const [alert, setAlert] = useState();
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [displayMessage, setDisplayMessage] = useState("");
+  const [modalOpened, setModalOpened] = useState();
 
   useTitle("Alunos");
 
+  const loadStudants = async () => {
+    try {
+      setLoading(true);
+      const students = await getAllStudants();
+      setUsers(students);
+      setFilteredUsers(students);
+    } catch (error) {
+      setAlert(error?.message || "Ocorreu um erro ao buscar os usuários");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const loadData = async () => {
-      try {
-        setLoading(true);
-        const students = await getAllStudants();
-        setUsers(students);
-        setFilteredUsers(students);
-      } catch (error) {
-        setError(error?.message || "Ocorreu um erro ao buscar os usuários");
-      } finally {
-        setLoading(false);
-      }
+      await loadStudants();
     };
 
     loadData();
@@ -50,26 +57,49 @@ const Students = () => {
 
   useEffect(() => {
     setFilteredUsers(
-      users.filter(
+      users?.filter(
         (item) =>
-          item.name.toLowerCase().indexOf(displayMessage.toLowerCase()) >= 0 ||
-          item.email.toLowerCase().indexOf(displayMessage.toLowerCase()) >= 0
+          item.name.toLowerCase().indexOf(displayMessage?.toLowerCase()) >= 0 ||
+          item.email.toLowerCase().indexOf(displayMessage?.toLowerCase()) >= 0
       )
     );
   }, [displayMessage, users]);
 
+  const onSubmitForm = async (values) => {
+    try {
+      setModalOpened("");
+      setLoading(true);
+      await registerUser(values);
+      setAlert({
+        message: "Administrador criado com sucesso!",
+        type: "success",
+      });
+
+      await loadStudants();
+    } catch (error) {
+      setAlert({
+        message: error?.message || "Ocorreu um erro ao criar o usuário",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const theme = useTheme();
   return (
-    <Box p={theme.spacing(3, 5)}>
+    <Box m={theme.spacing(4)}>
       <Backdrop open={loading}>
         <CircularProgress />
       </Backdrop>
+      <Button variant="outlined" onClick={() => setModalOpened("create")}>
+        Criar Administrador
+      </Button>
       <Typography
         color={theme.palette.secondary.contrastText}
         variant="h1"
         textAlign="center"
         marginBottom={theme.spacing(4)}
-        fullWidth
       >
         Alunos
       </Typography>
@@ -87,19 +117,24 @@ const Students = () => {
         }}
       ></TextField>
       <Snackbar
-        open={!!error}
+        open={!!alert?.message}
         autoHideDuration={6000}
-        onClose={() => setError(undefined)}
+        onClose={() => setAlert(undefined)}
       >
         <Alert
-          onClose={() => setError(undefined)}
-          severity="error"
+          onClose={() => setAlert(undefined)}
+          severity={alert?.type}
           sx={{ width: "100%" }}
         >
-          {error}
+          {alert?.message}
         </Alert>
       </Snackbar>
       <UserDataTable users={filteredUsers} />
+      <CreateUserDialog
+        open={modalOpened === "create"}
+        onClose={() => setModalOpened("")}
+        onSubmit={onSubmitForm}
+      />
     </Box>
   );
 };
