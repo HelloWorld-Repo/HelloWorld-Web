@@ -67,14 +67,13 @@ const Students = () => {
 
   const onSubmitForm = async (values) => {
     try {
-      setModalOpened("");
       setLoading(true);
       await registerUser(values);
       setAlert({
         message: "Administrador criado com sucesso!",
         type: "success",
       });
-
+      setModalOpened("");
       await loadStudants();
     } catch (error) {
       setAlert({

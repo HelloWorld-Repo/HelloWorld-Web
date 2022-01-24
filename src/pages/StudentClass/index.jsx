@@ -42,10 +42,10 @@ const StudantClass = () => {
 
   const onSubmitCreateForm = async (values) => {
     try {
-      setModalOpened("");
       setLoading(true);
       const newClass = await createClass(values);
       setClasses((oldArray) => [...oldArray, { ...newClass, users: [] }]);
+      setModalOpened("");
     } catch (error) {
       setError(error?.message || "Ocorreu um erro ao criar a turma");
     } finally {
