@@ -11,30 +11,37 @@ import {
 } from "@mui/material";
 
 import ModuleDataTable from "./components/ModuleDataTable";
-import CreateClassDialog from "./components/CreateClassDialog";
-import { getModules } from "../../services/StoryService";
+import CreateModuleDialog from "./components/CreateModuleDialog";
+import { createModule, getModules } from "../../services/StoryService";
 import useTitle from "../../hooks/useTitle";
 
 const Module = () => {
   const [loading, setLoading] = useState(false);
   const [modules, setModules] = useState([]);
   const [modalOpened, setModalOpened] = useState("");
-  const [error, setError] = useState();
+  const [alert, setAlert] = useState();
 
   const theme = useTheme();
   useTitle("Módulos");
 
+  const loadModules = async () => {
+    try {
+      setLoading(true);
+      const modules = await getModules();
+      setModules(modules);
+    } catch (error) {
+      setAlert({
+        message: error?.message || "Ocorreu um erro ao recuperar as turmas",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const loadData = async () => {
-      try {
-        setLoading(true);
-        const modules = await getModules();
-        setModules(modules);
-      } catch (error) {
-        setError(error?.message || "Ocorreu um erro ao recuperar as turmas");
-      } finally {
-        setLoading(false);
-      }
+      await loadModules();
     };
 
     loadData();
@@ -44,10 +51,14 @@ const Module = () => {
     try {
       setModalOpened("");
       setLoading(true);
-      // const newClass = await createClass(values);
-      // setModules((oldArray) => [...oldArray, { ...newClass, users: [] }]);
+      await createModule(values);
+      setAlert({ type: "success", message: "Módulo criado com sucesso" });
+      await loadModules();
     } catch (error) {
-      setError(error?.message || "Ocorreu um erro ao criar o módulo");
+      setAlert({
+        message: error?.message || "Ocorreu um erro ao criar o módulo",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -70,22 +81,22 @@ const Module = () => {
         Módulos
       </Typography>
       <ModuleDataTable rows={modules || []} />
-      <CreateClassDialog
+      <CreateModuleDialog
         open={modalOpened === "create"}
         onClose={() => setModalOpened("")}
         onSubmit={onSubmitCreateForm}
       />
       <Snackbar
-        open={!!error}
+        open={!!alert?.message}
         autoHideDuration={6000}
-        onClose={() => setError(undefined)}
+        onClose={() => setAlert(undefined)}
       >
         <Alert
-          onClose={() => setError(undefined)}
-          severity="error"
+          onClose={() => setAlert(undefined)}
+          severity={alert?.type}
           sx={{ width: "100%" }}
         >
-          {error}
+          {alert?.message}
         </Alert>
       </Snackbar>
     </Box>

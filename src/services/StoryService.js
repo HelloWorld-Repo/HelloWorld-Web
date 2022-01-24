@@ -4,6 +4,14 @@ export const getModules = async () => {
   return await api.get("modules");
 };
 
+export const updateModule = async (module) => {
+  return await api.patch("module", module);
+};
+
+export const createModule = async (module) => {
+  return await api.post("module", module);
+};
+
 export const getChapters = async () => {
   return await api.get("chapters");
 };
