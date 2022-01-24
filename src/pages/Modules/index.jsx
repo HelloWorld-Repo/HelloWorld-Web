@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 
 import ModuleDataTable from "./components/ModuleDataTable";
-import CreateModuleDialog from "./components/CreateModuleDialog";
 import { createModule, getModules } from "../../services/StoryService";
 import useTitle from "../../hooks/useTitle";
+import ModuleFormDialog from "../../components/ModuleFormDialog";
 
 const Module = () => {
   const [loading, setLoading] = useState(false);
@@ -49,10 +49,10 @@ const Module = () => {
 
   const onSubmitCreateForm = async (values) => {
     try {
-      setModalOpened("");
       setLoading(true);
       await createModule(values);
       setAlert({ type: "success", message: "Módulo criado com sucesso" });
+      setModalOpened("");
       await loadModules();
     } catch (error) {
       setAlert({
@@ -81,10 +81,12 @@ const Module = () => {
         Módulos
       </Typography>
       <ModuleDataTable rows={modules || []} />
-      <CreateModuleDialog
+      <ModuleFormDialog
         open={modalOpened === "create"}
         onClose={() => setModalOpened("")}
         onSubmit={onSubmitCreateForm}
+        title="Criar módulo"
+        submitText="Criar"
       />
       <Snackbar
         open={!!alert?.message}

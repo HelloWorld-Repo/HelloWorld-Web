@@ -12,8 +12,16 @@ import {
 import { useLocation } from "react-router";
 import useDate from "../../hooks/useDate";
 import useTitle from "../../hooks/useTitle";
-import { ChapterDataTable, ChapterFormDialog } from "../../components";
-import { createChapter, getModule } from "../../services/StoryService";
+import {
+  ChapterDataTable,
+  ChapterFormDialog,
+  ModuleFormDialog,
+} from "../../components";
+import {
+  createChapter,
+  getModule,
+  updateModule,
+} from "../../services/StoryService";
 
 const ModuleDetails = () => {
   const theme = useTheme();
@@ -22,12 +30,12 @@ const ModuleDetails = () => {
 
   const moduleId = state.module.id;
 
-  const [module, setModule] = useState({});
+  const [module, setModule] = useState();
   const [openedModal, setOpenedModal] = useState("");
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState();
 
-  useTitle( module?.title || 'Detalhes do Módulo')
+  useTitle(module?.title || "Detalhes do Módulo");
 
   const loadModule = async () => {
     try {
@@ -54,7 +62,6 @@ const ModuleDetails = () => {
 
   const onSubmitCreateChapterForm = async (values) => {
     try {
-      setOpenedModal("");
       setLoading(true);
       await createChapter(values);
       await loadModule();
@@ -62,6 +69,27 @@ const ModuleDetails = () => {
         message: "Deu tudo certo com a criação do capítulo!",
         type: "success",
       });
+      setOpenedModal("");
+    } catch (error) {
+      setAlert({
+        message: error?.message || "Ocorreu um erro ao criar o capítulo",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onSubmitUpdateModuleForm = async (values) => {
+    try {
+      setLoading(true);
+      await updateModule(values);
+      setAlert({
+        message: "Deu tudo certo com a criação do capítulo!",
+        type: "success",
+      });
+      await loadModule();
+      setOpenedModal("");
     } catch (error) {
       setAlert({
         message: error?.message || "Ocorreu um erro ao criar o capítulo",
@@ -83,8 +111,17 @@ const ModuleDetails = () => {
         textAlign="center"
         margin={theme.spacing(4, 0)}
       >
-        {`Módulo "${module.title}"`}
+        {`Módulo "${module?.title}"`}
       </Typography>
+      <Box display="flex" justifyContent="end">
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => setOpenedModal("updateModule")}
+        >
+          Editar
+        </Button>
+      </Box>
       <Typography
         color={theme.palette.secondary.contrastText}
         variant="h2"
@@ -94,16 +131,16 @@ const ModuleDetails = () => {
       </Typography>
       <Box>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Nome:</strong> {module.title}
+          <strong>Nome:</strong> {module?.title}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Posição:</strong> {module.position}
+          <strong>Posição:</strong> {module?.position}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Criado em:</strong> {formatToBrDate(module.createdAt)}
+          <strong>Criado em:</strong> {formatToBrDate(module?.createdAt)}
         </Typography>
         <Typography>
-          <strong>Atualizado em:</strong> {formatToBrDate(module.updatedAt)}
+          <strong>Atualizado em:</strong> {formatToBrDate(module?.updatedAt)}
         </Typography>
       </Box>
       <Box display="flex" justifyContent="space-between">
@@ -119,14 +156,22 @@ const ModuleDetails = () => {
         </Button>
       </Box>
       <ChapterDataTable chapters={module?.chapters || []} module={module} />
-      {openedModal === "createChapter" && (
-        <ChapterFormDialog
+      <ChapterFormDialog
+        open={openedModal === "createChapter"}
+        onClose={() => setOpenedModal("")}
+        onSubmit={onSubmitCreateChapterForm}
+        moduleId={module?.id}
+        title="Criar novo capítulo"
+        submitText="Criar capítulo"
+      />
+      {openedModal === "updateModule" && (
+        <ModuleFormDialog
           open={true}
           onClose={() => setOpenedModal("")}
-          onSubmit={onSubmitCreateChapterForm}
-          moduleId={module.id}
-          title="Criar novo capítulo"
-          submitText="Criar capítulo"
+          onSubmit={onSubmitUpdateModuleForm}
+          module={module}
+          title="Editar módulo"
+          submitText="Salvar"
         />
       )}
       <Snackbar

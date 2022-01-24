@@ -87,7 +87,6 @@ const ChapterFormDialog = ({
       console.log(values);
       if (!!onSubmit) {
         onSubmit(values);
-        formik.resetForm();
       }
     },
   });

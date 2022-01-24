@@ -11,25 +11,38 @@ import {
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-const CreateModuleDialog = ({ open = false, onClose, onSubmit, module }) => {
+const ModuleFormDialog = ({
+  open = false,
+  onClose,
+  onSubmit,
+  module,
+  title,
+  submitText,
+}) => {
   const formik = useFormik({
     initialValues: {
-      title: "",
-      poosition: ""
+      title: module?.title || "",
+      position: module?.position || "",
     },
     validationSchema: yup.object({
       title: yup.string().required("Digite o título do módulo"),
-      position: yup.number().required("Escolha a posição que o módulo terá na jornada")
+      position: yup
+        .number()
+        .required("Escolha a posição que o módulo terá na jornada"),
     }),
     onSubmit: (values) => {
-      if (!!onSubmit) onSubmit(values);
+      if (!!onSubmit) {
+        if (!!module) return onSubmit({ ...values, id: module?.id });
+        onSubmit(values);
+      }
     },
+    enableReinitialize: true,
   });
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle variant="h1" fontSize={30} textAlign="center">
-        Criar novo módulo
+        {title}
       </DialogTitle>
       <DialogContent>
         <TextField
@@ -44,7 +57,7 @@ const CreateModuleDialog = ({ open = false, onClose, onSubmit, module }) => {
               ? formik.errors.title
               : ""
           }
-          value={formik.title}
+          value={formik.values.title}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           inputProps={{ style: { fontSize: 18 } }}
@@ -62,7 +75,7 @@ const CreateModuleDialog = ({ open = false, onClose, onSubmit, module }) => {
               ? formik.errors.position
               : ""
           }
-          value={formik.position}
+          value={formik.values.position}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           inputProps={{ style: { fontSize: 18 } }}
@@ -76,14 +89,14 @@ const CreateModuleDialog = ({ open = false, onClose, onSubmit, module }) => {
           onClick={formik.handleSubmit}
           disabled={!formik.isValid}
         >
-          Criar módulo
+          {submitText}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-CreateModuleDialog.propTypes = {
+ModuleFormDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
@@ -91,8 +104,9 @@ CreateModuleDialog.propTypes = {
     position: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    chapters: PropTypes.array.isRequired,
   }),
+  title: PropTypes.string.isRequired,
+  submitText: PropTypes.string.isRequired,
 };
 
-export default CreateModuleDialog;
+export default ModuleFormDialog;

@@ -5,6 +5,7 @@ import ChapterDataTable from "./ChapterDataTable";
 import QuestionsDataTable from "./QuestionsDataTable";
 import ChapterFormDialog from "./ChapterFormDialog";
 import QuestionFormDialog from "./QuestionFormDialog";
+import ModuleFormDialog from "./ModuleFormDialog";
 
 export {
   Navbar,
@@ -14,4 +15,5 @@ export {
   QuestionsDataTable,
   ChapterFormDialog,
   QuestionFormDialog,
+  ModuleFormDialog,
 };
