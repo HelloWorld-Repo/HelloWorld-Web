@@ -6,19 +6,22 @@ const useStyles = makeStyles((theme) => ({
     padding: 24,
     "& h1": {
       fontSize: 24,
-      fontFamily: 'Londrina Shadow'
+      fontFamily: "Londrina Shadow",
     },
     "& h2": {
       fontSize: 22,
-      fontFamily: 'Londrina Shadow'
+      fontFamily: "Londrina Shadow",
     },
     "& h3": {
       fontSize: 20,
-      fontFamily: 'Londrina Shadow'
+      fontFamily: "Londrina Shadow",
     },
     "& p": {
       fontSize: 18,
-      fontFamily: 'Text Me One'
+      fontFamily: "Text Me One",
+    },
+    "& img": {
+      maxWidth: "100%",
     },
   },
 }));
