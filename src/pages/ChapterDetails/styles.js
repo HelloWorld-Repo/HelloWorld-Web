@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 18,
       fontFamily: "Text Me One",
     },
-    "& img": {
+    "& p img": {
       maxWidth: "100%",
     },
   },
