@@ -19,9 +19,19 @@ const useStyles = makeStyles((theme) => ({
     "& p": {
       fontSize: 18,
       fontFamily: "Text Me One",
+      
+      "& img": {
+        maxWidth: "100%",
+      },
     },
-    "& p img": {
-      maxWidth: "100%",
+    "& pre": {
+      padding: 25,
+      backgroundColor: " rgba(123, 123, 123, 0.1)",
+      borderRadius: 20,
+
+      "& code": {
+        whiteSpace: "pre-wrap",
+      },
     },
   },
 }));

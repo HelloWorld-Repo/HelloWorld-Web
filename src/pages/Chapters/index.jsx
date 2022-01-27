@@ -18,7 +18,7 @@ const Module = () => {
   const [loading, setLoading] = useState(false);
   const [chapters, setChapters] = useState([]);
   const [modalOpened, setModalOpened] = useState("");
-  const [alert, setAlert] = useState({ type: "", message: "" });
+  const [alert, setAlert] = useState();
 
   const theme = useTheme();
 

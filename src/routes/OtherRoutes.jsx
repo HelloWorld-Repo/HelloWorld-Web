@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Routes as Switch, Route } from "react-router-dom";
 
 import { Navbar } from "../components";
@@ -23,12 +22,12 @@ const OtherRoutes = () => {
         <Route path="/user" element={<StudentDetails />} />
         <Route path="/classes" element={<Classes />} />
         <Route path="/class" element={<ClassDetails />} />
-        <Route path="/module" element={<ModuleDetails />} />
+        <Route path="/module/:id" element={<ModuleDetails />} />
         <Route path="/modules" element={<Modules />} />
         <Route path="/chapters" element={<Chapters />} />
-        <Route path="/chapter" element={<ChapterDetails />} />
+        <Route path="/chapter/:id" element={<ChapterDetails />} />
         <Route path="/questions" element={<Questions />} />
-        <Route path="/question" element={<QuestionDetails />} />
+        <Route path="/question/:id" element={<QuestionDetails />} />
         <Route path="/" element={<Home />} />
       </Switch>
     </>

@@ -45,7 +45,7 @@ const ModuleDataTable = ({ rows }) => {
                 <IconButton
                   aria-label="Visualizar Módulo"
                   onClick={() =>
-                    navigate("/module", { state: { module: row } })
+                    navigate(`/module/${row.id}`, { state: { module: row } })
                   }
                 >
                   <ArrowForwardIosIcon sx={{ fontSize: 20 }} />

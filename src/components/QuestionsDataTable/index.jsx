@@ -21,7 +21,7 @@ const QuestionsDataTable = ({ questions = [] }) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="Tabela de questões">
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
@@ -34,17 +34,21 @@ const QuestionsDataTable = ({ questions = [] }) => {
         <TableBody>
           {questions?.map((question) => (
             <TableRow
-              key={question.id}
+              key={question?.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{question.id}</TableCell>
-              <TableCell>{question.chapter?.module?.title}</TableCell>
-              <TableCell>{question.chapter?.title}</TableCell>
-              <TableCell>{question.description}</TableCell>
+              <TableCell>{question?.id}</TableCell>
+              <TableCell>{question?.chapter?.module?.title}</TableCell>
+              <TableCell>{question?.chapter?.title}</TableCell>
+              <TableCell>{question?.description}</TableCell>
               <TableCell>
                 <IconButton
                   aria-label="Visualizar Questão"
-                  onClick={() => navigate("/question", { state: { question } })}
+                  onClick={() =>
+                    navigate(`/question/${question.id}`, {
+                      state: { question },
+                    })
+                  }
                 >
                   <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
                 </IconButton>

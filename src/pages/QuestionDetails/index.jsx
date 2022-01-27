@@ -9,7 +9,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { useLocation } from "react-router";
+import { useParams } from "react-router-dom";
 
 import OptionsDataTable from "./components/OptionsDataTable";
 import useDate from "../../hooks/useDate";
@@ -21,9 +21,8 @@ const QuestionDetails = () => {
   const theme = useTheme();
   const { formatToBrDate } = useDate();
 
-  const { state } = useLocation();
-  const questionId = state.question.id;
-
+  const { id: questionId } = useParams();
+  
   const [question, setQuestion] = useState({});
   const [openedModal, setOpenedModal] = useState("");
   const [loading, setLoading] = useState("");

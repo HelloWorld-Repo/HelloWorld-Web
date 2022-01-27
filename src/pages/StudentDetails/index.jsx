@@ -21,7 +21,7 @@ const StudentDetails = () => {
         textAlign="center"
         margin={theme.spacing(4, 0)}
       >
-        {`Usuário "${user.name}"`}
+        {`Usuário "${user?.name}"`}
       </Typography>
       <Typography
         color={theme.palette.secondary.contrastText}

@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography, useTheme, Box } from "@mui/material";
 import { useLocation } from "react-router";
-import PropTypes from "prop-types";
 
 import useDate from "../../hooks/useDate";
 import { UserDataTable } from "../../components";
@@ -23,7 +22,7 @@ const ClassDetails = () => {
         textAlign="center"
         margin={theme.spacing(4, 0)}
       >
-        {`Turma "${classItem.name}"`}
+        {`Turma "${classItem?.name}"`}
       </Typography>
       <Typography
         color={theme.palette.secondary.contrastText}
@@ -34,13 +33,13 @@ const ClassDetails = () => {
       </Typography>
       <Box>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Nome:</strong> {classItem.name}
+          <strong>Nome:</strong> {classItem?.name}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Criado em:</strong> {formatToBrDate(classItem.createdAt)}
+          <strong>Criado em:</strong> {formatToBrDate(classItem?.createdAt)}
         </Typography>
         <Typography>
-          <strong>Atualizado em:</strong> {formatToBrDate(classItem.updatedAt)}
+          <strong>Atualizado em:</strong> {formatToBrDate(classItem?.updatedAt)}
         </Typography>
       </Box>
       <Typography
@@ -50,7 +49,7 @@ const ClassDetails = () => {
       >
         Alunos
       </Typography>
-      <UserDataTable users={classItem.users} />
+      <UserDataTable users={classItem?.users} />
     </Box>
   );
 };

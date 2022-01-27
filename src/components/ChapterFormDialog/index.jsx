@@ -65,6 +65,7 @@ const ChapterFormDialog = ({
     };
 
     loadData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formik = useFormik({

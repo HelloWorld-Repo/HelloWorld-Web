@@ -9,8 +9,7 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import { useLocation } from "react-router";
-import PropTypes from "prop-types";
+import { useParams } from "react-router";
 import ReactMarkdown from "react-markdown";
 
 import useStyles from "./styles";
@@ -31,23 +30,24 @@ import useTitle from "../../hooks/useTitle";
 const ChapterDetails = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const { state } = useLocation();
   const { formatToBrDate } = useDate();
 
+  const { id: chapterId } = useParams();
+
   const [openedModal, setOpenedModal] = useState("");
-  const [chapter, setChapter] = useState(state?.chapter || {});
+  const [chapter, setChapter] = useState({});
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [alert, setAlert] = useState({});
-  
+
   useTitle(chapter?.name || "Detalhes do capítulo");
 
   const loadChapter = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await getChapter(chapter.id);
+      const response = await getChapter(chapterId);
       setChapter(response);
-      const questionResponse = await getQuestions(chapter.id);
+      const questionResponse = await getQuestions(chapterId);
       setQuestions(questionResponse);
     } catch (error) {
       setAlert({
@@ -57,7 +57,7 @@ const ChapterDetails = () => {
     } finally {
       setLoading(false);
     }
-  }, [chapter.id]);
+  }, [chapterId]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -65,12 +65,13 @@ const ChapterDetails = () => {
     };
 
     loadData();
-  }, [loadChapter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmitUpdateChapter = async (values) => {
     try {
       setLoading(true);
-      await updateChapter({ id: chapter.id, ...values });
+      await updateChapter({ id: chapterId, ...values });
       await loadChapter();
       setOpenedModal("");
       setAlert({
@@ -118,7 +119,7 @@ const ChapterDetails = () => {
         textAlign="center"
         margin={theme.spacing(4, 0)}
       >
-        {`Questão "${chapter.title}"`}
+        {`Questão "${chapter?.title}"`}
       </Typography>
       <Box display="flex" justifyContent="end">
         <Button
@@ -138,22 +139,22 @@ const ChapterDetails = () => {
       </Typography>
       <Box>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Nome:</strong> {chapter.title}
+          <strong>Nome:</strong> {chapter?.title}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Módulo:</strong> {chapter.module.title}
+          <strong>Módulo:</strong> {chapter?.module?.title}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Criado em:</strong> {formatToBrDate(chapter.createdAt)}
+          <strong>Criado em:</strong> {formatToBrDate(chapter?.createdAt)}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>
-          <strong>Atualizado em:</strong> {formatToBrDate(chapter.updatedAt)}
+          <strong>Atualizado em:</strong> {formatToBrDate(chapter?.updatedAt)}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>
           <strong>Explicação:</strong>
         </Typography>
         <ReactMarkdown className={classes.markdown}>
-          {chapter.explanation}
+          {chapter?.explanation}
         </ReactMarkdown>
       </Box>
       <Box display="flex" justifyContent="space-between">
@@ -200,7 +201,7 @@ const ChapterDetails = () => {
           onSubmit={onSubmitCreateQuestion}
           title="Adicionar Questão"
           submitText="Criar"
-          chapterId={chapter?.id}
+          chapterId={chapterId}
         />
       )}
     </Box>

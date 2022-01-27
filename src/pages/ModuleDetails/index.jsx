@@ -9,7 +9,7 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import { useLocation } from "react-router";
+import { useParams } from "react-router-dom";
 import useDate from "../../hooks/useDate";
 import useTitle from "../../hooks/useTitle";
 import {
@@ -25,10 +25,9 @@ import {
 
 const ModuleDetails = () => {
   const theme = useTheme();
-  const { state } = useLocation();
   const { formatToBrDate } = useDate();
 
-  const moduleId = state.module.id;
+  const { id: moduleId } = useParams();
 
   const [module, setModule] = useState();
   const [openedModal, setOpenedModal] = useState("");
@@ -58,6 +57,7 @@ const ModuleDetails = () => {
     };
 
     loadData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmitCreateChapterForm = async (values) => {

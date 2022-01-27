@@ -43,7 +43,9 @@ const ChapterDataTable = ({ chapters, module }) => {
               <TableCell>
                 <IconButton
                   aria-label="Visualizar Capítulo"
-                  onClick={() => navigate("/chapter", { state: { chapter } })}
+                  onClick={() =>
+                    navigate(`/chapter/${chapter?.id}`, { state: { chapter } })
+                  }
                 >
                   <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
                 </IconButton>
@@ -57,16 +59,18 @@ const ChapterDataTable = ({ chapters, module }) => {
 };
 
 ChapterDataTable.propTypes = {
-  chapters: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    position: PropTypes.number.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    module: PropTypes.shape({
-      title: PropTypes.string.isRequired,
+  chapters: PropTypes.arrayOf(
+    PropTypes.shape({
       id: PropTypes.number.isRequired,
-    }).isRequired,
-  })).isRequired,
+      title: PropTypes.string.isRequired,
+      position: PropTypes.number.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      module: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+      }).isRequired,
+    })
+  ).isRequired,
   module: PropTypes.shape({
     title: PropTypes.string,
     id: PropTypes.number,
