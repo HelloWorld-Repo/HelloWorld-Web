@@ -105,6 +105,7 @@ const QuestionFormDialog = ({
         </Backdrop>
         <TextField
           fullWidth
+          multiline
           margin="dense"
           type="text"
           name="description"
