@@ -119,7 +119,7 @@ const ChapterDetails = () => {
         textAlign="center"
         margin={theme.spacing(4, 0)}
       >
-        {`Questão "${chapter?.title}"`}
+        {`Capítulo "${chapter?.title}"`}
       </Typography>
       <Box display="flex" justifyContent="end">
         <Button
