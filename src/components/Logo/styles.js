@@ -4,6 +4,7 @@ const useStyles = makeStyles({
   logoContainer: {
     display: "flex",
     flexDirection: "column",
+    color: "#FFFFFF",
   },
 });
 
