@@ -53,15 +53,27 @@ const Home = () => {
 
   return (
     <Box p={theme.spacing(5)}>
+      <Typography
+        variant="h1"
+        fontFamily="Londrina Solid"
+        color={theme.palette.secondary.contrastText}
+        textAlign="center"
+        fontSize={60}
+        marginTop={0}
+      >
+        HelloWorld
+      </Typography>
       {content.map((module) => (
         <Fragment key={module.id}>
-          <Box backgroundColor={theme.palette.grey[200]}>
+          <Box>
             <Typography
               variant="h2"
               fontFamily="Text Me One"
               fontSize={18}
               fontWeight="bold"
               padding={theme.spacing(2)}
+              borderBottom="solid 3px #ddd;"
+              margin={theme.spacing(4, 0, 0, 0)}
             >
               {module.title.toUpperCase()}
             </Typography>
