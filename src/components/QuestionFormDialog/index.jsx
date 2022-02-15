@@ -74,7 +74,7 @@ const QuestionFormDialog = ({
         true
       );
     } catch (error) {
-      setError(`Não foi possível recuperar os capítulos: ${error}`);
+      setError(`Não foi possível recuperar os capítulos: ${error?.message}`);
     } finally {
       setLoading(false);
     }

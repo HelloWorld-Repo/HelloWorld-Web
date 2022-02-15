@@ -100,7 +100,7 @@ const ChapterDetails = () => {
       });
     } catch (error) {
       setAlert({
-        message: "Ocorreu um erro ao criar a questão",
+        message: error?.message || "Ocorreu um erro ao criar a questão",
         type: "error",
       });
     } finally {

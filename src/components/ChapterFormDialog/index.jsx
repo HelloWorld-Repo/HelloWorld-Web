@@ -53,7 +53,7 @@ const ChapterFormDialog = ({
         true
       );
     } catch (error) {
-      setError(`Não foi possível recuperar os módulos: ${error}`);
+      setError(`Não foi possível recuperar os módulos: ${error?.message}`);
     } finally {
       setLoading(false);
     }

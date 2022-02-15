@@ -31,7 +31,7 @@ const Module = () => {
       setChapters(chapters);
     } catch (error) {
       setAlert({
-        message: "Ocorreu um erro ao recuperar os capítulos",
+        message: error?.message || "Ocorreu um erro ao recuperar os capítulos",
         type: "error",
       });
     } finally {
@@ -59,7 +59,7 @@ const Module = () => {
       });
     } catch (error) {
       setAlert({
-        message: "Ocorreu um erro ao recuperar os módulos",
+        message: error?.message || "Ocorreu um erro ao recuperar os módulos",
         type: "error",
       });
     } finally {
