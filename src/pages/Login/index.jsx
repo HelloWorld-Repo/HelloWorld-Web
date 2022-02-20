@@ -30,7 +30,7 @@ const Login = () => {
           startIcon={<AndroidIcon />}
           variant="outlined"
           download
-          href={process.env.APP_DOWNLOAD_URL}
+          href={process.env.REACT_APP_DOWNLOAD_URL}
         >
           Baixar Aplicativo
         </Button>
