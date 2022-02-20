@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Button, Typography, useTheme } from "@mui/material";
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import AndroidIcon from "@mui/icons-material/Android";
 
 import { Logo } from "../../components";
 import useTitle from "../../hooks/useTitle";
@@ -26,7 +26,12 @@ const Login = () => {
         item
       >
         <Logo containerClasses={classes.logoContainer} />
-        <Button startIcon={<FileDownloadOutlinedIcon />} variant="outlined">
+        <Button
+          startIcon={<AndroidIcon />}
+          variant="outlined"
+          download
+          href={process.env.APP_DOWNLOAD_URL}
+        >
           Baixar Aplicativo
         </Button>
       </Grid>

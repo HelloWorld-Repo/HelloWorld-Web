@@ -1,8 +1,5 @@
 start:
 	docker-compose up -d
-	
-build:
-	docker-compose up --build
 
 start-dev:
 	docker-compose up
