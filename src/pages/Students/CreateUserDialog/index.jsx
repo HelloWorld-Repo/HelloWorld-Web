@@ -44,7 +44,7 @@ const CreateUserDialog = ({ open = false, onClose, onSubmit }) => {
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle variant="h1" fontSize={30} textAlign="center">
-        Criar novo usuário
+        Criar novo administrador
       </DialogTitle>
       <DialogContent>
         <TextField

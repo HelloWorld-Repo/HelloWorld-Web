@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-import { getAllStudants, registerUser } from "../../services/StudantService";
+import { getAllStudants, registerUser } from "../../services/UserService";
 import { UserDataTable } from "../../components";
 import useTitle from "../../hooks/useTitle";
 import CreateUserDialog from "./CreateUserDialog";
