@@ -9,23 +9,27 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import useDate from "../../hooks/useDate";
-import { UserDataTable } from "../../components";
 import useTitle from "../../hooks/useTitle";
+import DeleteClassDialog from "./components/DeleteClassDialog/DeleteClassDialog";
+import { UserDataTable } from "../../components";
 import { importUsers } from "../../services/UserService";
+import { deleteClass } from "../../services/ClassService";
 
 const ClassDetails = () => {
   const [file, setFile] = useState();
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState();
+  const [openedModal, setOpenedModal] = useState();
   const [fileArea, setFileArea] = useState(false);
   const uploadInputRef = useRef(null);
 
   const { state } = useLocation();
   const { formatToBrDate } = useDate();
   const classItem = state.classItem;
+  const navigate = useNavigate();
 
   useTitle(classItem?.name || "Detalhes da Turma");
 
@@ -67,20 +71,51 @@ const ClassDetails = () => {
     }
   };
 
+  const onSubmit = async () => {
+    try {
+      setLoading(true);
+      await deleteClass(classItem?.id);
+      setAlert({
+        type: "success",
+        message: "Turma deletada com sucesso",
+        duration: 6000,
+      });
+      navigate("/classes");
+    } catch (error) {
+      setAlert({
+        type: "error",
+        message: error?.message || "Erro ao remover turma",
+        duration: 6000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const theme = useTheme();
   return (
     <Box p={theme.spacing(3, 5)}>
       <Backdrop open={loading}>
         <CircularProgress />
       </Backdrop>
-      <Typography
-        color={theme.palette.secondary.contrastText}
-        variant="h1"
-        textAlign="center"
-        margin={theme.spacing(4, 0)}
-      >
-        {`Turma "${classItem?.name}"`}
-      </Typography>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Typography
+          color={theme.palette.secondary.contrastText}
+          variant="h1"
+          textAlign="center"
+          margin={theme.spacing(4, 0)}
+        >
+          {`Turma "${classItem?.name}"`}
+        </Typography>
+        <Button
+          color="error"
+          onClick={() => setOpenedModal("delete")}
+          variant="outlined"
+        >
+          Excluir Turma
+        </Button>
+      </Box>
+
       <Typography
         color={theme.palette.secondary.contrastText}
         variant="h2"
@@ -163,6 +198,12 @@ const ClassDetails = () => {
         </Alert>
       </Snackbar>
       <UserDataTable users={classItem?.users} />
+      <DeleteClassDialog
+        onClose={() => setOpenedModal("")}
+        open={openedModal === "delete"}
+        className={classItem?.name}
+        onSubmit={onSubmit}
+      />
     </Box>
   );
 };

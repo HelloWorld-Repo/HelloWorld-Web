@@ -5,5 +5,9 @@ export const getClasses = async () => {
 };
 
 export const createClass = async (data) => {
-  return await api.post("class", { ...data });
+  return await api.post("class", data);
+};
+
+export const deleteClass = async (id) => {
+  return await api.delete("class", { data: { id } });
 };
