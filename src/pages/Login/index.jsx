@@ -45,7 +45,8 @@ const Login = () => {
         padding={theme.spacing(0, 2)}
       >
         <Typography textAlign="center">
-          Olá novamente, digite seu login para continuar
+          Você é administrador? Digite seu login para continuar! <br/>
+          Caso não seja, <strong>baixe o aplicativo</strong>
         </Typography>
         <LoginForm />
       </Grid>
