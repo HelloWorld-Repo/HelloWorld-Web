@@ -33,7 +33,7 @@ const theme = createTheme({
     fontSize: 18,
     h1: {
       fontFamily: "Londrina Solid",
-      fontSize: 50,
+      fontSize: 45,
       fontWeight: "700",
     },
     h2: {

@@ -35,6 +35,9 @@ const StudentDetails = () => {
           <strong>Turma:</strong> {user?.class?.name || "Usuário sem turma"}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>
+          <strong>Nível atual:</strong> {user?.level}
+        </Typography>
+        <Typography marginBottom={theme.spacing(3)}>
           <strong>Nome:</strong> {user?.name}
         </Typography>
         <Typography marginBottom={theme.spacing(3)}>

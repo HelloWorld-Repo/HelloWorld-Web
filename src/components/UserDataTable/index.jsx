@@ -23,17 +23,19 @@ const UserDataTable = ({ users, sampleMode = false }) => {
           <TableRow>
             <TableCell>Nome</TableCell>
             <TableCell>E-mail</TableCell>
+            <TableCell>Nível</TableCell>
             <TableCell>Ver</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((user) => (
+          {users?.map((user) => (
             <TableRow
               key={user.email}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
+              <TableCell>{user.level}</TableCell>
               <TableCell>
                 <IconButton
                   aria-label="Visualizar Aluno"
