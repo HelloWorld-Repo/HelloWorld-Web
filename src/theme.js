@@ -34,11 +34,17 @@ const theme = createTheme({
     h1: {
       fontFamily: "Londrina Solid",
       fontSize: 50,
-      fontWeight: "700"
+      fontWeight: "700",
     },
     h2: {
-      fontFamily: "Londrina Shadow",
+      fontFamily: "Londrina Solid",
       fontSize: 30,
+      fontWeight: "500",
+    },
+    h3: {
+      fontFamily: "Londrina Solid",
+      fontSize: 25,
+      fontWeight: "400",
     },
   },
   components: {

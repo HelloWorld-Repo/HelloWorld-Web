@@ -47,7 +47,7 @@ const Home = () => {
     {
       title: "Resultados",
       id: 3,
-      content: [{ title: "Análise de Dados", link: "/analytic", id: 1 }],
+      content: [{ title: "Resumo e Feedbacks", link: "/analytic", id: 1 }],
     },
   ];
 
