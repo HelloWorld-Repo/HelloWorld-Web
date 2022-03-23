@@ -129,7 +129,8 @@ const Results = () => {
       <Box maxHeight={450} overflowY="scroll" p={theme.spacing(2)}>
         {feedbackData?.map(
           (feedback, index) =>
-            !!feedback?.text && (
+            !!feedback?.text &&
+            feedback?.text !== " " && (
               <Box
                 backgroundColor={theme.palette.grey[200]}
                 key={index}
